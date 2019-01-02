@@ -1,0 +1,13 @@
+﻿  program.cpp
+d:\algo\classics\classics\big_nums_operations\program.cpp(13): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(55): warning C4018: '>': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(92): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(97): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(109): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(117): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(132): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(136): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(165): warning C4018: '<': signed/unsigned mismatch
+d:\algo\classics\classics\big_nums_operations\program.cpp(176): warning C4018: '<': signed/unsigned mismatch
+  classics.vcxproj -> D:\algo\classics\classics\Debug\classics.exe
+  classics.vcxproj -> D:\algo\classics\classics\Debug\classics.pdb (Full PDB)
