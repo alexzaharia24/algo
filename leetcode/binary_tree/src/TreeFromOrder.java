@@ -73,8 +73,8 @@ public class TreeFromOrder {
         List<Integer> postOrderLeftSubtree = preOrder.subList(1, inOrderLeftSubtree.size() + 1);
         List<Integer> preOrderRightSubtree = preOrder.subList(inOrderLeftSubtree.size() + 1, preOrder.size());
 
-        root.left = createTreeFromInAndPostOrder(inOrderLeftSubtree, postOrderLeftSubtree);
-        root.right = createTreeFromInAndPostOrder(inOrderRightSubtree, preOrderRightSubtree);
+        root.left = createTreeFromInAndPreOrder(inOrderLeftSubtree, postOrderLeftSubtree);
+        root.right = createTreeFromInAndPreOrder(inOrderRightSubtree, preOrderRightSubtree);
 
         return root;
     }
