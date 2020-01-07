@@ -1,6 +1,3 @@
-import com.sun.source.tree.Tree;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 class Pair<K, V> {
@@ -25,6 +22,12 @@ public class BinaryTree {
     public static List<Integer> nodes;
 
     public static void main(String[] args) {
+//        PathSum.run();
+        TreeFromOrder.run();
+//        test();
+    }
+
+    private static void test() {
         int[] treeArray = {-1, 1, 2, 3, -1, -1, -1, -1};
 
         // TODO binary tree array representation
@@ -94,8 +97,7 @@ public class BinaryTree {
 //        int depthBottomUp = maxDepthBottomUp(nodeF, 1);
 //        System.out.println("Max depth bottom up: " + depthBottomUp);
 
-
-        PathSum.run();
+        BinaryTreeUtils.printOrder(nodeF, "in");
     }
 
     public static int maxDepthBottomUp(TreeNode node, int depth) {
