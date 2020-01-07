@@ -95,7 +95,7 @@ public class BinaryTree {
 //        System.out.println("Max depth bottom up: " + depthBottomUp);
 
 
-        SymmetricBinaryTree.run();
+        PathSum.run();
     }
 
     public static int maxDepthBottomUp(TreeNode node, int depth) {

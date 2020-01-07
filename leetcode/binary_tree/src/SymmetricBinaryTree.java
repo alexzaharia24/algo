@@ -1,11 +1,28 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class SymmetricBinaryTree {
     public static void run() {
-        test1();
+        test2();
+    }
+
+    public static void test2() {
+        // Asymmetric tree
+
+        TreeNode root = new TreeNode(1);
+        TreeNode node1 = new TreeNode(2);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(3);
+
+
+        root.left = node1;
+        root.right = node2;
+
+        node1.right = node3;
+        node2.right = node4;
+
+        // System.out.println(isTreeSymmetricIterative(root));
+        System.out.println(isTreeSymmetricRecursive(root));
     }
 
     public static void test1() {
@@ -28,26 +45,6 @@ public class SymmetricBinaryTree {
         node2.right = node4;
 
 //        System.out.println(isTreeSymmetricIterative(root));
-        System.out.println(isTreeSymmetricRecursive(root));
-    }
-
-    public static void test2() {
-        // Asymmetric tree
-
-        TreeNode root = new TreeNode(1);
-        TreeNode node1 = new TreeNode(2);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(3);
-
-
-        root.left = node1;
-        root.right = node2;
-
-        node1.right = node3;
-        node2.right = node4;
-
-        // System.out.println(isTreeSymmetricIterative(root));
         System.out.println(isTreeSymmetricRecursive(root));
     }
 
