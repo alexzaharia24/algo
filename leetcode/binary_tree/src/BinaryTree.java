@@ -23,8 +23,9 @@ public class BinaryTree {
 
     public static void main(String[] args) {
 //        PathSum.run();
-        TreeFromOrder.run();
+//        TreeFromOrder.run();
 //        test();
+        NextRightPointers.run();
     }
 
     private static void test() {
@@ -116,7 +117,7 @@ public class BinaryTree {
         maxDepthTopDown(node.right, depth + 1, answer);
     }
 
-    public static List<List<String>> breadthFirstTraversal(TreeNode root) {
+    public static List<List<String>> breadthFirstTraversalWithPair(TreeNode root) {
         List<List<String>> order = new ArrayList<>();
         Queue<Pair<TreeNode, Integer>> toVisit = new LinkedList<>();
 
@@ -152,42 +153,6 @@ public class BinaryTree {
         return order;
     }
 
-    public static List<List<String>> breadthFirstTraversalNoPair(TreeNode root) {
-        List<List<String>> order = new ArrayList<>();
-        Queue<TreeNode> toVisit = new LinkedList<>();
-
-        if (root != null) {
-            toVisit.add(root);
-        }
-
-        while (!toVisit.isEmpty()) {
-
-            List<String> levelValues = new ArrayList<>();
-
-            int queueSize = toVisit.size();
-            TreeNode node;
-            while (queueSize > 0) {
-                node = toVisit.poll();
-
-                if (node.left != null) toVisit.add(node.left);
-                if (node.right != null) toVisit.add(node.right);
-
-                levelValues.add(node.name);
-                queueSize--;
-            }
-
-            order.add(levelValues);
-        }
-
-//        for (List<String> level : order) {
-//            for (String nodeName : level) {
-//                System.out.print(nodeName + " ");
-//            }
-//            System.out.println();
-//        }
-
-        return order;
-    }
 
     public static TreeNode getTreeLinkedListFromArray(int[] treeArray) {
         if (treeArray.length < 2) {
@@ -206,15 +171,6 @@ public class BinaryTree {
         return root;
     }
 
-    /**
-     * Definition for a binary tree node.
-     * public class TreeNode {
-     * int val;
-     * TreeNode left;
-     * TreeNode right;
-     * TreeNode(int x) { val = x; }
-     * }
-     */
     public static List<Integer> traversal(TreeNode root) {
         List<Integer> nodes = new ArrayList<>();
         if (root == null) {
