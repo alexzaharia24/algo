@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/130_surrounded_regions/130_surrounded_regions.iml" filepath="$PROJECT_DIR$/130_surrounded_regions/130_surrounded_regions.iml" />
       <module fileurl="file://$PROJECT_DIR$/146_LRU_cache/146_LRU_cache.iml" filepath="$PROJECT_DIR$/146_LRU_cache/146_LRU_cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/148_sort_linked_list/148_sort_linked_list.iml" filepath="$PROJECT_DIR$/148_sort_linked_list/148_sort_linked_list.iml" />
+      <module fileurl="file://$PROJECT_DIR$/150_evaluate_reverse_polish_notation/150_evaluate_reverse_polish_notation.iml" filepath="$PROJECT_DIR$/150_evaluate_reverse_polish_notation/150_evaluate_reverse_polish_notation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/152_maximum_product_subarray/152_maximum_product_subarray.iml" filepath="$PROJECT_DIR$/152_maximum_product_subarray/152_maximum_product_subarray.iml" />
       <module fileurl="file://$PROJECT_DIR$/15_3_sum/15_3_sum.iml" filepath="$PROJECT_DIR$/15_3_sum/15_3_sum.iml" />
       <module fileurl="file://$PROJECT_DIR$/179_largest_number/179_largest_number.iml" filepath="$PROJECT_DIR$/179_largest_number/179_largest_number.iml" />
       <module fileurl="file://$PROJECT_DIR$/19_remove_nth_node_end_of_list/19_remove_nth_node_end_of_list.iml" filepath="$PROJECT_DIR$/19_remove_nth_node_end_of_list/19_remove_nth_node_end_of_list.iml" />
@@ -13,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/322_coin_change/322_coin_change.iml" filepath="$PROJECT_DIR$/322_coin_change/322_coin_change.iml" />
       <module fileurl="file://$PROJECT_DIR$/33_search_in_sorted_rotated_array/33_search_in_sorted_rotated_array.iml" filepath="$PROJECT_DIR$/33_search_in_sorted_rotated_array/33_search_in_sorted_rotated_array.iml" />
       <module fileurl="file://$PROJECT_DIR$/34_first_last_occurence_in_sorted_array/34_first_last_occurence_in_sorted_array.iml" filepath="$PROJECT_DIR$/34_first_last_occurence_in_sorted_array/34_first_last_occurence_in_sorted_array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/395_longest_substring_at_least_k_repeating_chars/395_longest_substring_at_least_k_repeating_chars.iml" filepath="$PROJECT_DIR$/395_longest_substring_at_least_k_repeating_chars/395_longest_substring_at_least_k_repeating_chars.iml" />
       <module fileurl="file://$PROJECT_DIR$/46_permutations/46_permutations.iml" filepath="$PROJECT_DIR$/46_permutations/46_permutations.iml" />
       <module fileurl="file://$PROJECT_DIR$/48_rotate_image/48_rotate_image.iml" filepath="$PROJECT_DIR$/48_rotate_image/48_rotate_image.iml" />
       <module fileurl="file://$PROJECT_DIR$/55_jump_game/55_jump_game.iml" filepath="$PROJECT_DIR$/55_jump_game/55_jump_game.iml" />
