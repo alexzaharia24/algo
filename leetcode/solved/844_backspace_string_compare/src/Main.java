@@ -1,5 +1,8 @@
 import java.util.Stack;
 
+/**
+ * https://leetcode.com/problems/backspace-string-compare/
+ */
 public class Main {
     public static void main(String[] args) {
         Main man = new Main();
