@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,14 +6,78 @@ public class Main {
     public static void main(String[] args) {
         Main man = new Main();
 
+//        char[][] grid = new char[][]{
+//                {'1', '1', '1', '1', '1'},
+//                {'1', '1', '1', '1', '1'},
+//                {'1', '1', '1', '1', '1'},
+//                {'1', '1', '1', '1', '1'}
+//        };
+
+//        char[][] grid = new char[][]{
+//                {'1', '1', '1', '1', '0',},
+//                {'1', '1', '0', '1', '0',},
+//                {'1', '1', '0', '0', '1',},
+//                {'0', '0', '1', '0', '0',},
+//        };
+
         char[][] grid = new char[][]{
-                {'1', '1', '1', '1', '1'},
-                {'1', '1', '1', '1', '1'},
-                {'1', '1', '1', '1', '1'},
-                {'1', '1', '1', '1', '1'}
+                {'1', '1', '0', '0', '0',},
+                {'1', '1', '0', '0', '0',},
+                {'0', '0', '1', '0', '0',},
+                {'0', '0', '0', '1', '1',},
         };
 
-        System.out.println(man.numIslands(grid));
+//        System.out.println(man.numIslands(grid));
+        System.out.println(man.numIslands30DayChallenge(grid));
+        System.out.println();
+    }
+
+    public int numIslands30DayChallenge(char[][] grid) {
+        int numberOfIslands = 0;
+
+        if (grid.length == 0) return 0;
+        if (grid[0].length == 0) return 0;
+
+        int numberOfRows = grid.length, numberOfCols = grid[0].length;
+
+        boolean[][] visited = new boolean[numberOfRows][numberOfCols];
+
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j < numberOfCols; j++) {
+                if (isNodeValid(grid, i, j, visited)) {
+                    visitNode(grid, i, j, visited); // This will visit the node and all its valid neighbours. At the end of the visits we are guaranteed that all the tiles of the islands have been visited.
+                    numberOfIslands++;
+                }
+            }
+        }
+
+        return numberOfIslands;
+    }
+
+    // DFS
+    public void visitNode(char[][] grid, int row, int col, boolean[][] visited) {
+        // neighbour positions
+        // ----------   | row-1, col |  ----------
+        // row, col-1   | ---------- |  row, col+1
+        // ----------   | row+1, col |  ----------
+
+        visited[row][col] = true; // Mark node as visited
+
+        int[][] neighbourPositions = new int[][]{
+                {row - 1, col}, {row, col - 1}, {row + 1, col}, {row, col + 1}
+        };
+
+        for (int[] neighbourPosition : neighbourPositions) {
+            if (isNodeValid(grid, neighbourPosition[0], neighbourPosition[1], visited)) {
+                visitNode(grid, neighbourPosition[0], neighbourPosition[1], visited);
+            }
+        }
+    }
+
+    public boolean isNodeValid(char[][] grid, int row, int col, boolean[][] visited) {
+        int numberOfRows = grid.length, numberOfCols = grid[0].length;
+
+        return row >= 0 && row < numberOfRows && col >= 0 && col < numberOfCols && grid[row][col] == '1' && !visited[row][col];
     }
 
     public int numIslands(char[][] grid) {
