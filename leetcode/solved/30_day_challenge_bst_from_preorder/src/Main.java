@@ -17,8 +17,40 @@ public class Main {
         Main man = new Main();
         int[] preorder = new int[]{8, 5, 1, 7, 10, 12};
 
-        TreeNode bst = man.constructBST(preorder);
+        TreeNode bst = man.bstFromPreorder(preorder);
         System.out.println();
+    }
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return constructTree(preorder, 0, preorder.length);
+    }
+
+    public TreeNode constructTree(int[] preorder, int start, int end) {
+        if(start >= preorder.length || start >= end) return null;
+        TreeNode node = new TreeNode(preorder[start]);
+        int firstBigger = getFirstBiggger(preorder,start, end);
+        TreeNode left = null, right = null;
+        if(firstBigger == -1) {
+            // only smaller elements to the right
+            left = constructTree(preorder, start+1, end);
+        }
+        else {
+            // both smaller and bigger elements to the right
+            left = constructTree(preorder, start+1, firstBigger);
+            right = constructTree(preorder, firstBigger, end);
+        }
+
+        node.left = left;
+        node.right = right;
+
+        return node;
+    }
+
+    public int getFirstBiggger(int[] arr, int start, int end) {
+        for(int i=start+1; i<end; i++) {
+            if(arr[i] > arr[start]) return i;
+        }
+        return -1;
     }
 
     public TreeNode constructBST(int[] preorder) {
