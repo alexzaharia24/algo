@@ -2,8 +2,8 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../30_day_challenge/2020_04_april/30_day_challenge_binary_tree_string_valid_path_sequence">
+      <sourceFolder url="file://$MODULE_DIR$/../30_day_challenge/2020_04_april/30_day_challenge_binary_tree_string_valid_path_sequence/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

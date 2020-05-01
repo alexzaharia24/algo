@@ -53,6 +53,7 @@ public class Main {
         return -1;
     }
 
+    // First attempt
     public TreeNode constructBST(int[] preorder) {
         TreeNode head = new TreeNode(preorder[0]);
         nextBranch(preorder, 1, preorder.length, head);

@@ -7,7 +7,7 @@ class TreeNode {
 }
 public class Main {
     public static void main(String[] args) {
-
+        System.out.println();
     }
 
     public boolean isValidSequence(TreeNode root, int[] arr) {
