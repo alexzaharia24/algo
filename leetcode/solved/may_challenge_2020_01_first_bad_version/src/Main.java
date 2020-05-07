@@ -10,20 +10,20 @@ class VersionControl {
 }
 
 public class Main extends VersionControl {
-    Main() {
-        int n = 2126753390;
-        this.arr = new ArrayList<>();
-        for (int i = 0; i <1702766719; i++) {
-            this.arr.add(false);
-        }
-        for (int i = 1702766719; i <n; i++) {
-            this.arr.add(true);
-        }
-    }
+//    Main() {
+//        int n = 2126753390;
+//        this.arr = new ArrayList<>();
+//        for (int i = 0; i <1702766719; i++) {
+//            this.arr.add(false);
+//        }
+//        for (int i = 1702766719; i <n; i++) {
+//            this.arr.add(true);
+//        }
+//    }
 
     public static void main(String[] args) {
         Main man = new Main();
-        int firstBadV = man.firstBadVersion(2126753390);
+        int firstBadV = man.firstBadVersionSimplified(2126753390);
         System.out.println(firstBadV);
     }
 
