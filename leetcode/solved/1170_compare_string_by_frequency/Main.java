@@ -19,9 +19,7 @@ public class Main {
         int[] answer = new int[n];
         int[] wFreqs = new int[m];
 
-        for(int i=0; i<m; i++) {
-            wFreqs[i] = freqOfSmallestChar(words[i]);
-        }
+        for(int i=0; i<m; i++)  
 
         for(int i=0; i<n; i++) {
             int freq = freqOfSmallestChar(queries[i]);
