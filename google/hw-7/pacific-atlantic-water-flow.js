@@ -44,7 +44,11 @@ function bfs(matrix, visited, canReach, start, isEdge) {
 
         for (let neighbor of neighbors) {
             let row = neighbor.row, col = neighbor.col;
-            if (isNeighborValid(neighbor, matrix) && !visited[row][col] && (matrix[element.row][element.col] <= matrix[row][col] || isEdge(matrix, row, col))) {
+            if (
+                isNeighborValid(neighbor, matrix) &&
+                !visited[row][col] &&
+                (matrix[element.row][element.col] <= matrix[row][col] ||isEdge(matrix, row, col))
+            ) {
                 visited[row][col] = true;
                 canReach[row][col] = true;
                 queue.push(neighbor);
