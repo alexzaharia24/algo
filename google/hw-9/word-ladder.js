@@ -6,38 +6,27 @@ function ladderLength(beginWord, endWord, wordList) {
 
 function isOneCharDistance(word1, word2) {
     let nrOfDifferentChars = 0;
-    for (let idx in word1) {
-        if (word1[idx] !== word2[idx]) {
-            nrOfDifferentChars++;
-        }
+    // for (let idx in word1) {
+    //     if (word1[idx] !== word2[idx]) {
+    //         nrOfDifferentChars++;
+    //     }
+    // }
+
+    for (let i = 0; i < word1.length; i++) {
+        if (word1[i] !== word2[i]) nrOfDifferentChars++;
     }
     return nrOfDifferentChars === 1;
 }
 
 function solveWithAdjancyList(beginWord, endWord, wordList) {
-    // let adjList = {};
-
-    // wordList.push(beginWord);
-    // for (let word1 of wordList) {
-    //     adjList[word1] = [];
-    //     for (let word2 of wordList) {
-    //         if (word1 !== word2 && isOneCharDistance(word1, word2)) {
-    //             adjList[word1].push(word2);
-    //         }
-    //     }
-    // }
-
     // BFS
     let queue = [];
     let idxQueue = 0;
     let distances = {}; // Distances from beginWord to certain words. Can be used as "visited"
-    // for (let word of wordList) {
-    //     distances[word] = -1;
-    // }
+
     queue.push(beginWord);
     distances[beginWord] = 1; // Initial distance
     while (idxQueue < queue.length) {
-        // let word = queue[idxQueue++];
         let word1 = queue[idxQueue++];
         for (let word2 of wordList) {
             if (!(word2 in distances) && isOneCharDistance(word1, word2)) {
@@ -45,14 +34,6 @@ function solveWithAdjancyList(beginWord, endWord, wordList) {
                 distances[word2] = distances[word1] + 1;
             }
         }
-
-        // let neighbors = adjList[word];
-        // for (let neighbor of neighbors) {
-        // if (distances[neighbor] === -1) {
-        //     queue.push(neighbor);
-        //     distances[neighbor] = distances[word] + 1;
-        // }
-        // }
     }
     // console.log(adjList);
     let answer = distances[endWord];
