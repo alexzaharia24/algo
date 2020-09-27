@@ -9,7 +9,7 @@ class TreeNode {
 }
 
 function isValidBST(root) {
-    [isValid, min, max] = dfs(root);
+    let [isValid, min, max] = dfs(root);
     return isValid;
 }
 
@@ -19,10 +19,8 @@ function dfs(node) {
     // Space: O(n) recursion stack
     if (node === null) return [true, Infinity, -Infinity];
 
-    let isValidLeft, minLeft, maxLeft;
-    let isValidRight, minRight, maxRight;
-    [isValidLeft, minLeft, maxLeft] = dfs(node.left);
-    [isValidRight, minRight, maxRight] = dfs(node.right);
+    let [isValidLeft, minLeft, maxLeft] = dfs(node.left);
+    let [isValidRight, minRight, maxRight] = dfs(node.right);
 
     let isValid = (
         isValidLeft && isValidRight &&
