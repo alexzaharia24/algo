@@ -68,7 +68,6 @@ function maxDistanceBFS(grid) {
 
     let maxDist = 0;
     while (idxQueue < queue.length) {
-    console.log(queue);
         let cell = queue[idxQueue++];
         let neighbors = [
             { row: cell.row - 1, col: cell.col }, // up
@@ -79,7 +78,6 @@ function maxDistanceBFS(grid) {
 
         for (let neighbor of neighbors) {
             if (isCellValid(nrOfRows, nrOfCols, neighbor.row, neighbor.col) && !visited[neighbor.row][neighbor.col]) {
-                console.log(neighbor)
                 distances[neighbor.row][neighbor.col] = distances[cell.row][cell.col] + 1;
                 maxDist = Math.max(distances[neighbor.row][neighbor.col], maxDist);
                 visited[neighbor.row][neighbor.col] = true;

@@ -11,11 +11,11 @@ function isPositionValid(matrix, row, col) {
     return row >= 0 && row < nrOfRows && col >= 0 && col < nrOfCols;
 }
 
-function getRowFromNode(node, nrOfRows) { 
+function getRowFromNode(node, nrOfRows) {
     if (nrOfRows === 1) return 0;
     return parseInt(node / nrOfRows);
 }
-function getColFromNode(node, nrOfCols) { 
+function getColFromNode(node, nrOfCols) {
     return node % nrOfCols;
 }
 
@@ -52,38 +52,70 @@ function longestIncreasingPathBrute(matrix) {
     }
 
     let maxLengthOfPath = 0;
+    let longestPath = { path: [] };
     for (let row = 0; row < nrOfRows; row++) {
         for (let col = 0; col < nrOfCols; col++) {
             let visited = new Array(nrOfRows).fill().map(() => new Array(nrOfCols).fill(false));
-            let lengthOfPath = dfs(row, col, adjacenyList, matrix, visited);
-            maxLengthOfPath = Math.max(maxLengthOfPath, lengthOfPath);
-            console.log(`row: ${row}, col: ${col}, length: ${lengthOfPath}`)
+            dfs(row, col, adjacenyList, matrix, [], "", longestPath);
+            // maxLengthOfPath = Math.max(maxLengthOfPath, lengthOfPath);
+            // console.log(`row: ${row}, col: ${col}, length: ${lengthOfPath}`)
         }
     }
 
-    return maxLengthOfPath;
+    // console.log(`longestPath: ${longestPath.path}`)
+    // return maxLengthOfPath;
+    return longestPath.path.length;
 }
 
 
 
-function dfs(row, col, adjacenyList, matrix, visited) {
+function dfs(row, col, adjacenyList, matrix, path, indent, result) {
     let nrOfRows = matrix.length;
     let nrOfCols = matrix[0].length;
-    visited[row][col] = true;
+    path.push(row * nrOfRows + col);
+    if (path.length > result.path.length) {
+        result.path = deepCopy(path);
+    }
+    // console.log(`${indent}row: ${row}, col: ${col}, path: ${path}`)
     let neighbors = adjacenyList.get(row * nrOfRows + col);
-    if (neighbors.length === 0) return 1;
-    let maxLength = 0;
+    indent += " ";
     for (let neighbor of neighbors) {
         let neighborRow = getRowFromNode(neighbor, nrOfRows);
         let neighborCol = getColFromNode(neighbor, nrOfCols);
-        if(!visited[neighborRow][neighborCol]) {
-            let result = 1 + dfs(neighborRow, neighborCol, adjacenyList, matrix, visited);
-            maxLength = Math.max(maxLength, result);
-        }
-        visited[neighborRow][neighborCol] = false;
+
+        dfs(neighborRow, neighborCol, adjacenyList, matrix, path, indent, result);
     }
-    return maxLength;
+    indent = indent.substring(0, indent.length - 1);
+    // Exit dfs
+    path.pop();
 }
+
+function deepCopy(arr) {
+    let result = [];
+    for (let elem of arr) {
+        result.push(elem);
+    }
+    return result;
+}
+
+// function dfs(row, col, adjacenyList, matrix, visited) {
+//     let nrOfRows = matrix.length;
+//     let nrOfCols = matrix[0].length;
+//     visited[row][col] = true;
+//     let neighbors = adjacenyList.get(row * nrOfRows + col);
+//     if (neighbors.length === 0) return 1;
+//     let maxLength = 0;
+//     for (let neighbor of neighbors) {
+//         let neighborRow = getRowFromNode(neighbor, nrOfRows);
+//         let neighborCol = getColFromNode(neighbor, nrOfCols);
+//         if(!visited[neighborRow][neighborCol]) {
+//             let result = 1 + dfs(neighborRow, neighborCol, adjacenyList, matrix, visited);
+//             maxLength = Math.max(maxLength, result);
+//         }
+//         visited[neighborRow][neighborCol] = false;
+//     }
+//     return maxLength;
+// }
 
 
 // console.log(longestIncreasingPath([
@@ -96,10 +128,18 @@ function dfs(row, col, adjacenyList, matrix, visited) {
 //     [3, 2, 6],
 //     [2, 2, 1]
 // ]));
-// console.log(longestIncreasingPathBrute([[2,8,6,0,4,14],[15,3,5,0,10,12],[10,13,14,5,11,16],[7,8,16,11,15,13],[19,10,7,13,0,11],[16,19,7,3,6,11],[7,2,5,9,0,19],[14,11,8,8,14,11],[4,5,10,4,2,12]]))
+console.log(longestIncreasingPathBrute([[2,8,6,0,4,14],[15,3,5,0,10,12],[10,13,14,5,11,16],[7,8,16,11,15,13],[19,10,7,13,0,11],[16,19,7,3,6,11],[7,2,5,9,0,19],[14,11,8,8,14,11],[4,5,10,4,2,12]]))
 
-console.log(longestIncreasingPath([[7,8,9],[9,7,6],[7,2,3]]))
+// console.log(longestIncreasingPath([[7, 8, 9], [9, 7, 6], [7, 2, 3]]))
 
-// graph.forEach((value, key) => {
-//     console.log(`{row: ${key.row}, col: ${key.col}}: `, value)
-// });
+// [
+//     [2, 8, 6, 0, 4, 14],
+//     [15, 3, 5, 0, 10, 12],
+//     [10, 13, 14, 5, 11, 16],
+//     [7, 8, 16, 11, 15, 13],
+//     [19, 10, 7, 13, 0, 11],
+//     [16, 19, 7, 3, 6, 11],
+//     [7, 2, 5, 9, 0, 19],
+//     [14, 11, 8, 8, 14, 11],
+//     [4, 5, 10, 4, 2, 12]
+// ]
