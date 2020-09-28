@@ -32,7 +32,7 @@ console.log("-------------------------")
 t1 = performance.now();
 let arr2 = [];
 for (let i = 0; i < SAMPLE_SIZE; i++) {
-    arr2.push(parseInt(Math.random() * 100));
+    arr2.push(Math.random() * 100);
 }
 t2 = performance.now();
 
@@ -58,22 +58,22 @@ console.log(`Looped using classic for loop through ${SAMPLE_SIZE} 0-100 value el
 console.log("-------------------------")
 
 // --- SUM
-let sum = 0;
 t1 = performance.now();
+let sum = 0;
 for (let i in arr2) { sum += arr2[i]; }
 t2 = performance.now();
 
 console.log(`Summed using for...in ${SAMPLE_SIZE} 0-100 value elements in ${t2 - t1} ms`)
 
-sum = 0;
 t1 = performance.now();
+sum = 0;
 for (let elem of arr2) { sum += elem; }
 t2 = performance.now();
 
 console.log(`Summed using for...of ${SAMPLE_SIZE} 0-100 value elements in ${t2 - t1} ms`)
 
-sum = 0;
 t1 = performance.now();
+sum = 0;
 for (let i = 0; i < arr2.length; i++) { sum+=arr2[i]; }
 t2 = performance.now();
 
