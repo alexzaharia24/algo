@@ -9,6 +9,10 @@ class TreeNode {
 }
 
 function diameterOfBinaryTree(root) {
+    return diameterOfBinaryTreeDfsWithResultObject(root);
+}
+
+function diameterOfBinaryTreeDfs(root) {
     // Time: O(n)
     // Space: O(n) recursion stack
     if (root === null) return 0;
@@ -29,9 +33,31 @@ function dfs(root) {
     let maxBranch = Math.max(leftMaxBranch, rightMaxBranch);
     let maxThroughParent = Math.max(leftMaxThroughParent, rightMaxThroughParent, leftMaxBranch + rightMaxBranch);
 
-    // console.log(`node: ${root.val}, [maxBranch, maxThroughParent]: [${maxBranch}, ${maxThroughParent}]`);
     return [maxBranch, maxThroughParent];
+}
 
+function diameterOfBinaryTreeDfsWithResultObject(root) {
+    // Time: O(n)
+    // Space: O(n) recursion stack
+    if (root === null) return 0;
+    let result = { diameter: 0 }
+    dfsWithResultObject(root, result);
+    return result.diameter - 1;
+}
+
+function dfsWithResultObject(root, result) {
+    // Time: O(n)
+    // Space: O(n) recursion stack
+    if (root === null) return 0;
+
+    let leftMaxBranch = dfsWithResultObject(root.left, result);
+    let rightMaxBranch = dfsWithResultObject(root.right, result);
+
+    let maxBranch = Math.max(1 + leftMaxBranch, 1 + rightMaxBranch);
+    let maxThroughParent = Math.max(result.diameter, leftMaxBranch + rightMaxBranch + 1);
+    result.diameter = maxThroughParent;
+
+    return maxBranch;
 }
 
 let n1 = new TreeNode(1);
