@@ -12,23 +12,15 @@ function insertIntoBST(root, val) {
     
     // Find insertion point
     let insertionPoint = dfs(root, val, null);
-    let result = root;
     
     // Insert the node
     if(val > insertionPoint.val) {
         insertionPoint.right = newNode;
-        // newNode.left = insertionPoint;
-
-        // if(insertionPoint.right !== null && val < insertionPoint.right) {
-        //     newNode.right = insertionPoint.right;
-        //     insertionPoint.right = null;
-        // }
-        
     } else {
         insertionPoint.left = newNode;
     }
 
-    return result;
+    return root;
 }
 
 function dfs(node, val, candidate) {
