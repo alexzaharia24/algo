@@ -1,26 +1,5 @@
 // https://leetcode.com/problems/longest-increasing-subsequence/
 
-// function lengthOfLIS(nums) {
-//     let dp = new Array(nums.length).fill(0);
-//     for (let i = 0; i < nums.length; i++) {
-//         let seqLength = dfs(nums, i, dp);
-//         dp[i] = seqLength;
-//     }
-// }
-
-// function dfs(nums, nodeIdx, dp) {
-//     let nrOfNeighbors = 0;
-//     for (let j = nodeIdx + 1; j < nums.length; j++) {
-//         if (nums[j] > nums[nodeIdx]) {
-//             nrOfNeighbors++;
-//             return dfs(nums, j, dp);
-//         }
-//     }
-//     if (nrOfNeighbors === 0) {
-//         return 1;
-//     }
-// }
-
 function lengthOfLIS(nums) {
     return lengthOfLISWithMemoisation(nums);
 }
