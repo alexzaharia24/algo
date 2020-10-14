@@ -1,16 +1,13 @@
 // https://leetcode.com/problems/minimum-path-sum/
 
-let nrOfDfsCalls = 0;
-
 function minPathSum(grid) {
     if (grid.length === 0) return 0;
     if (grid[0].length === 0) return 0;
     let sum;
-    sum = dfsNoMemoisation(0, 0, grid);
+    // sum = dfsNoMemoisation(0, 0, grid);
 
     let memory = {};
-    // sum = dfsWithMemoisation(0, 0, grid, memory);
-    console.log(`For N=${grid.length * grid[0].length} => ${nrOfDfsCalls} dfs calls`)
+    sum = dfsWithMemoisation(0, 0, grid, memory);
 
     return sum;
 }
@@ -19,7 +16,6 @@ function minPathSum(grid) {
 function dfsWithMemoisation(row, col, grid, memory) {
     // Time: O(n)
     // Space: O(n) memoization + recursion stack
-    nrOfDfsCalls++;
     let neighbors = [
         { row: row, col: col + 1 }, // right
         { row: row + 1, col: col }, // down
@@ -42,7 +38,6 @@ function dfsWithMemoisation(row, col, grid, memory) {
 }
 
 function dfsNoMemoisation(row, col, grid) {
-    nrOfDfsCalls++;
     let neighbors = [
         { row: row, col: col + 1 }, // right
         { row: row + 1, col: col }, // down
