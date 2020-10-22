@@ -5,6 +5,8 @@ function deleteAndEarn(nums) {
 }
 
 function deleteAndEarnDP(nums) {
+    // Time: O(n)
+    // Space: O(n)
     if (nums.length == 0) return 0;
     let values = [];
     let multiplicity = {};
