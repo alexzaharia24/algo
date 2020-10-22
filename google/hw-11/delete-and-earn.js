@@ -1,6 +1,8 @@
 // https://leetcode.com/problems/delete-and-earn/
 
 function deleteAndEarn(nums) {
+    // Time: O(n^2)
+    // Space: O(n)
     let maxGlobalPoints = 0;
     let values = {};
 
@@ -13,6 +15,7 @@ function deleteAndEarn(nums) {
 
     let deleted = new Array(nums.length).fill(false);
     for (let i = 0; i < nums.length; i++) {
+        // Loop is O(n) * O(n) = O(n^2)
         let points = dfs(i, deleted, nums, values);
         maxGlobalPoints = Math.max(maxGlobalPoints, points);
     }
@@ -20,6 +23,8 @@ function deleteAndEarn(nums) {
 }
 
 function dfs(idx, deleted, nums, values) {
+    // Time: O(n)
+    // Space: O(n)
     let maxLocalPoints = 0;
     deleted[idx] = true;
     let predecessors = values[nums[idx] - 1] || [];
@@ -40,6 +45,7 @@ function dfs(idx, deleted, nums, values) {
     }
     let canDeleteFurther = false;
     for (let i = 0; i < nums.length; i++) {
+        // O(n) time
         if (!deleted[i]) {
             canDeleteFurther = true;
             let points = dfs(i, deleted, nums, values);
