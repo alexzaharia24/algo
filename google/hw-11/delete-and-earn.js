@@ -1,6 +1,46 @@
 // https://leetcode.com/problems/delete-and-earn/
 
 function deleteAndEarn(nums) {
+    return deleteAndEarnDP(nums);
+}
+
+function deleteAndEarnDP(nums) {
+    if (nums.length == 0) return 0;
+    let values = [];
+    let multiplicity = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        if (!(nums[i] in multiplicity)) {
+            values.push(nums[i]);
+            multiplicity[nums[i]] = 1;
+        } else {
+            multiplicity[nums[i]]++;
+        }
+    }
+    values = values.sort((a,b) => a-b);
+
+    let dp = new Array(values.length).fill();
+    // dp[i] is max nr of points up until position i
+    dp[0] = values[0] * multiplicity[values[0]];
+    let maxPoints = dp[0];
+    for (let i = 1; i < values.length; i++) {
+        let prevIndex1, prevIndex2;
+        if (values[i - 1] !== (values[i] - 1)) {
+            // if previous element is different than values[i]-1 then it was visited before this element => we can use its result
+            prevIndex1 = i - 1;
+            prevIndex2 = i - 2;
+        } else {
+            prevIndex1 = i - 2;
+            prevIndex2 = i - 3;
+        }
+        dp[i] = Math.max(dp[prevIndex1] || 0, dp[prevIndex2] || 0) + (values[i] * multiplicity[values[i]]);
+        maxPoints = Math.max(dp[i], maxPoints);
+    }
+    console.log(dp);
+    return maxPoints;
+}
+
+function deleteAndEarnBrute(nums) {
     // Time: O(n^2)
     // Space: O(n)
     let maxGlobalPoints = 0;
@@ -73,5 +113,7 @@ function dfs(idx, deleted, nums, values) {
     return nums[idx] + maxLocalPoints;
 }
 
-console.log(deleteAndEarn([3, 4, 2]))
-console.log(deleteAndEarn([2, 2, 3, 3, 3, 4]))
+// console.log(deleteAndEarn([3, 4, 2])) // 6 expected
+// console.log(deleteAndEarn([2, 2, 3, 3, 3, 4])) // 9 expected
+// console.log(deleteAndEarn([8, 10, 4, 9, 1, 3, 5, 9, 4, 10])) // 37 expected
+console.log(deleteAndEarn([3,3,3,4,2])) // 9 expected
