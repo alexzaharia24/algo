@@ -1,7 +1,53 @@
 // https://leetcode.com/problems/push-dominoes/
 
 function pushDominoes(dominoes) {
-    return pushDominoesBFS(dominoes);
+    return pushDominoesLinear(dominoes);
+}
+
+function pushDominoesLinear(dominoes) {
+    // Time: O(n)
+    // Space: O(n)
+    // Idea: for each L and R compute how many '.' will be transformed to either L or R and change them as you go.
+    // Technique: two pointers. 1 for domino to be modified, 1 for L or R domino in initial sequence
+    let dominoIdx = 0;
+    let leftRightArray = [];
+    let dominoesArray = [...dominoes];
+    for (let i = 0; i < dominoesArray.length; i++) {
+        if (dominoesArray[i] === 'L' || dominoesArray[i] === 'R') {
+            leftRightArray.push(i);
+        }
+    }
+
+    for (let i = 0; i < leftRightArray.length; i++) {
+        let idx = leftRightArray[i];
+        let nextIdx = leftRightArray[i + 1];
+        if (dominoesArray[idx] === 'L') {
+            while (dominoIdx <= idx) {
+                dominoesArray[dominoIdx++] = 'L';
+            }
+        } else {
+            dominoIdx = idx;
+            if (dominoesArray[nextIdx] === 'L') {
+                let nrOfRights = (nextIdx - idx - 1) / 2;
+                while (nrOfRights >= 0) {
+                    dominoesArray[dominoIdx++] = 'R';
+                    nrOfRights--;
+                }
+                if ((nextIdx - idx) % 2 === 0) {
+                    // The middle domino will be '.' => skip it
+                    dominoIdx++;
+                }
+            } else {
+                let nrOfRights = (nextIdx - idx) || (dominoesArray.length-1 - dominoIdx);
+                while (nrOfRights >= 0) {
+                    dominoesArray[dominoIdx++] = 'R';
+                    nrOfRights--;
+                }
+            }
+        }
+    }
+
+    return dominoesArray.join("");
 }
 
 function pushDominoesBFS(dominoes) {
@@ -93,3 +139,5 @@ function handlePiece(idx, result, dominoes) {
 }
 
 console.log(pushDominoes(".L.R...LR..L.."))
+console.log(pushDominoes("RR.L"))
+console.log(pushDominoes(".L.R."))
