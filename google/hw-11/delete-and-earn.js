@@ -5,7 +5,7 @@ function deleteAndEarn(nums) {
 }
 
 function deleteAndEarnDP(nums) {
-    // Time: O(n)
+    // Time: O(n*logn)
     // Space: O(n)
     if (nums.length == 0) return 0;
     let values = [];
