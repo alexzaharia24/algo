@@ -4,6 +4,22 @@ function pushDominoes(dominoes) {
     return pushDominoesLinear(dominoes);
 }
 
+function pushDominoesWithClosenessArrays(dominoes) {
+    let distanceToFirstRight = new Array(dominoes.length).fill(-1);
+    let distanceToFirstLeft = new Array(dominoes.length).fill(-1);
+
+    for (let i = 0; i < dominoes.length; i++) {
+        if (dominoes[i] === 'R') {
+            distanceToFirstRight = 0;
+        } else {
+            if (distanceToFirstRight[i - 1] !== -1) {
+                distanceToFirstRight[i] = distanceToFirstRight[i - 1] + 1;
+            }
+        }
+    }
+
+}
+
 function pushDominoesLinear(dominoes) {
     // Time: O(n)
     // Space: O(n)
@@ -38,7 +54,7 @@ function pushDominoesLinear(dominoes) {
                     dominoIdx++;
                 }
             } else {
-                let nrOfRights = (nextIdx - idx) || (dominoesArray.length-1 - dominoIdx);
+                let nrOfRights = (nextIdx - idx) || (dominoesArray.length - 1 - dominoIdx);
                 while (nrOfRights >= 0) {
                     dominoesArray[dominoIdx++] = 'R';
                     nrOfRights--;
