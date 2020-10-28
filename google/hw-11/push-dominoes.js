@@ -1,23 +1,57 @@
 // https://leetcode.com/problems/push-dominoes/
 
 function pushDominoes(dominoes) {
-    return pushDominoesLinear(dominoes);
+    return pushDominoesWithClosenessArrays(dominoes);
 }
 
 function pushDominoesWithClosenessArrays(dominoes) {
     let distanceToFirstRight = new Array(dominoes.length).fill(-1);
     let distanceToFirstLeft = new Array(dominoes.length).fill(-1);
+    let result = [...dominoes];
 
+    // We are interested in the first Right to the left, since the current piece might be pushed to the right by it
     for (let i = 0; i < dominoes.length; i++) {
         if (dominoes[i] === 'R') {
-            distanceToFirstRight = 0;
-        } else {
-            if (distanceToFirstRight[i - 1] !== -1) {
-                distanceToFirstRight[i] = distanceToFirstRight[i - 1] + 1;
-            }
+            distanceToFirstRight[i] = 0;
+        } else if (dominoes[i] === 'L') {
+            distanceToFirstRight[i] = -1;
+        } else if (distanceToFirstRight[i - 1] !== undefined && distanceToFirstRight[i - 1] !== -1) {
+            distanceToFirstRight[i] = distanceToFirstRight[i - 1] + 1;
         }
     }
 
+    // We are interested in the first Left to the right, since the current piece might be pushed to the left by it
+    for (let i = dominoes.length - 1; i >= 0; i--) {
+        if (dominoes[i] === 'L') {
+            distanceToFirstLeft[i] = 0;
+        } else if (dominoes[i] === 'R') {
+            distanceToFirstLeft[i] = -1;
+        } else if(distanceToFirstLeft[i + 1] !== undefined && distanceToFirstLeft[i + 1] !== -1) {
+            distanceToFirstLeft[i] = distanceToFirstLeft[i + 1] + 1;
+        }
+    }
+
+    console.log(distanceToFirstRight)
+    console.log(distanceToFirstLeft)
+    // Decide the direction of the piece
+    for (let i = 0; i < dominoes.length; i++) {
+        if (distanceToFirstRight[i] !== -1) {
+            if (distanceToFirstLeft[i] !== -1) {
+                if (distanceToFirstRight[i] < distanceToFirstLeft[i]) {
+                    result[i] = 'R';
+                } else if (distanceToFirstRight[i] > distanceToFirstLeft[i]) {
+                    result[i] = 'L';
+                }
+            } else {
+                result[i] = 'R';
+            }
+        } else {
+            if (distanceToFirstLeft[i] !== -1) {
+                result[i] = 'L';
+            }
+        }
+    }
+    return result.join('');
 }
 
 function pushDominoesLinear(dominoes) {
