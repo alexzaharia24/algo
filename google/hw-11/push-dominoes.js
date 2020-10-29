@@ -31,8 +31,6 @@ function pushDominoesWithClosenessArrays(dominoes) {
         }
     }
 
-    console.log(distanceToFirstRight)
-    console.log(distanceToFirstLeft)
     // Decide the direction of the piece
     for (let i = 0; i < dominoes.length; i++) {
         if (distanceToFirstRight[i] !== -1) {
