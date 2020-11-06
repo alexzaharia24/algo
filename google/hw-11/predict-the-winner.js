@@ -10,15 +10,15 @@ function PredictTheWinner(nums) {
 
     // dfs(0, nums.length - 1, nums, dp, false);
 
-    let maxPoints = dfs(0, nums.length-1, nums); 
-    return  totalPoints - maxPoints <= maxPoints;
+    let maxPoints = dfs(0, nums.length - 1, nums);
+    return totalPoints - maxPoints <= maxPoints;
 }
 
 function dfs(start, end, nums) {
-    if(start > end) return 0;
+    if (start > end) return 0;
     let points = 0;
-    let frontPoints = nums[start] + dfs(start+1, end, nums);
-    let backPoints = nums[end] + dfs(start, end-1, nums);
+    let frontPoints = nums[start] + dfs(start + 1, end, nums);
+    let backPoints = nums[end] + dfs(start, end - 1, nums);
 
 }
 
