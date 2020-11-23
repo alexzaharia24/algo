@@ -2,8 +2,49 @@
 
 
 function findNumberOfLIS(nums) {
-    // dp[i][j] = nr of seqs up to element n position i with length j
-    // dp[i][j] = dp[i-1][j-1]
+    // Time: O(n^2)
+    // Space: O(n)
+    // dp[i] = length of longest increasing subsequence that ends at position i
+    // count[i] = nr of increasing subsequences with length dp[i] until position i
+
+    let n = nums.length;
+    let dp = new Array(n).fill(1);
+
+    let maxLength = 1; // Length of at least one is the minimum
+    for (let i = 1; i < n; i++) {
+        for (let j = i - 1; j >= 0; j--) {
+            if (nums[j] < nums[i]) {
+                dp[i] = Math.max(dp[i], 1 + dp[j]);
+                maxLength = Math.max(dp[i], maxLength);
+
+                if(dp[j] === dp[i] - 1) {
+                    count[i] += count[j];
+                } 
+            }
+        }
+    }
+
+    let count = new Array(n).fill(0);
+
+    count[0] = 1;
+    for (let i = 1; i < n; i++) {
+        for (let j = 0; j < i; j++) {
+            if ((nums[j] < nums[i]) && (dp[j] === dp[i] - 1)) {
+                count[i] += count[j];
+            } else if (dp[i] === 1) {
+                count[i] = 1;
+            }
+        }
+    }
+
+    let nrOfLIS = 0;
+    for (let i = 0; i < n; i++) {
+        if (dp[i] === maxLength) {
+            nrOfLIS += count[i];
+        }
+    }
+
+    return nrOfLIS;
 }
 
 
@@ -33,11 +74,11 @@ function findNumberOfLISMaxLength(nums) {
         maxLength = Math.max(maxLength, value);
     }
 
-    if(maxLength === 1) return nums.length; 
+    if (maxLength === 1) return nums.length;
 
     let nrOfMaximalLengthSeqs = 0;
-    for(let value of dp) {
-        if(value === maxLength -1) {
+    for (let value of dp) {
+        if (value === maxLength - 1) {
             nrOfMaximalLengthSeqs++;
         }
     }
@@ -45,7 +86,9 @@ function findNumberOfLISMaxLength(nums) {
     return nrOfMaximalLengthSeqs;
 }
 
-// console.log(findNumberOfLIS([1, 3, 5, 4, 0, 7]))
-console.log(findNumberOfLIS([1,2,4,3,5,4,7,2]))
+console.log(findNumberOfLIS([1, 3, 5, 6, 4, 0,8]))
+console.log(findNumberOfLIS([1, 2, 4, 3, 5, 4, 7, 2]))
+console.log(findNumberOfLIS([3, 1, 2]))
+console.log(findNumberOfLIS([2, 2, 2, 2, 2]))
 
 
