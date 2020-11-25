@@ -162,9 +162,6 @@ function recursive(i, j, rows, cols, dp, matrix) {
     return maxLengthForPosition;
 }
 
-
-// TODO: TOPOLOGICAL SORT
-
 console.log(longestIncreasingPath([
     [9, 9, 4],
     [6, 6, 8],
