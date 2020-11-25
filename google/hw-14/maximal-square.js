@@ -1,10 +1,52 @@
 // https://leetcode.com/problems/maximal-square/
 
 function maximalSquare(matrix) {
-    return maximalSquare2D(matrix);
+    return maximalSquare2DOptimal(matrix);
+}
+
+function maximalSquare2DOptimal(matrix) {
+    // Time: O(n*m)
+    // Space: O(n*m)
+    // dp[i][j] = max square size for which  (i,j) is the right-bottom end
+    let rows = matrix.length;
+    if (rows === 0) return 0;
+    let cols = matrix[0].length;
+    if (cols === 0) return 0;
+
+    let dp = new Array(rows).fill()
+        .map(() => new Array(cols).fill());
+
+    // Mark size 1 squares
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            dp[i][j] = (matrix[i][j] === '1') ? 1 : 0;
+        }
+    }
+
+    for (let i = 1; i < rows; i++) {
+        for (let j = 1; j < cols; j++) {
+            if (dp[i][j] > 0) {
+                // Note: do not consider the value of dp[i][j] for the minimum since dp[i][j] can be only 1 in this block => it will always be the min
+                dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1;
+            }
+        }
+    }
+
+    let maxSquare = 0;
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (dp[i][j]) {
+                maxSquare = Math.max(maxSquare, dp[i][j]);
+            }
+        }
+    }
+
+    return maxSquare * maxSquare;
 }
 
 function maximalSquare2D(matrix) {
+    // Time: O(n*m*k)
+    // Space: O(n*m)
     // dp[i][j] = max square size for which  (i,j) is the right-bottom end
     let rows = matrix.length;
     if (rows === 0) return 0;
