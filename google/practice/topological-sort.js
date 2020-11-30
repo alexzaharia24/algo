@@ -103,14 +103,45 @@ function topoSortDFSRecursion(node, nrOfNodes, inEdges, adjList, order) {
     inEdges[node] = -1; // In edges works like a 'visited' array. 
 }
 
+function topoSortRecursiveSimple(nrOfNodes, listOfEdges) {
+    let adjList = new Array(nrOfNodes).fill()
+        .map(() => new Array());
 
-console.log(topoSortDFS(5,
-    [[1, 0], [0, 2], [1, 2], [1, 3], [3, 4]]
-))
+    for (let edge of listOfEdges) {
+        let outNode = edge[0], inNode = edge[1];
+        adjList[outNode].push(inNode);
+    }
 
-console.log(topoSortBFS(5,
-    [[1, 0], [0, 2], [1, 2], [1, 3], [3, 4]]
-))
+    let stack = []; // A stack
+    let visited = new Array(nrOfNodes).fill(false);
+    for (let i = 0; i < nrOfNodes; i++) {
+        if (!visited[i]) {
+            topoSortRecursiveSimpleRecursion(i, adjList, stack, visited);
+        }
+    }
+
+    return stack.reverse();
+}
+
+function topoSortRecursiveSimpleRecursion(node, adjList, stack, visited) {
+    visited[node] = true;
+    
+    for (let neighbour of adjList[node]) {
+        if (!visited[neighbour]) {
+            topoSortRecursiveSimpleRecursion(neighbour, adjList, stack, visited);
+        }
+    }
+
+    stack.push(node);
+}
+
+// console.log(topoSortDFS(5,
+//     [[1, 0], [0, 2], [1, 2], [1, 3], [3, 4]]
+// ))
+
+// console.log(topoSortBFS(5,
+//     [[1, 0], [0, 2], [1, 2], [1, 3], [3, 4]]
+// ))
 
 console.log(topoSortBFS(5,
     [[1, 2], [1, 3], [2, 3], [2, 4], [3, 4], [3, 5]]
@@ -119,3 +150,9 @@ console.log(topoSortBFS(5,
 console.log(topoSortDFS(5,
     [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [2, 4]]
 ))
+
+
+console.log(topoSortRecursiveSimple(5,
+    [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [2, 4]]
+))
+
