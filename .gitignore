@@ -3,3 +3,4 @@ leetcode/tools/*
 **/.idea
 usedFlights/
 .vscode/
+node_modules/
