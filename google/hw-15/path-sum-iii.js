@@ -10,8 +10,40 @@ function TreeNode(val, left, right) {
 let nrSums = 0, id;
 
 function pathSum(root, sum) {
-    console.log(root);
-    return pathSumWithGlobals(root, sum);
+    return pathSumWithArray(root, sum);
+}
+
+let nrOfTargetPathSums;
+
+function pathSumWithArray(root, sum) {
+    // Time: O((nr of nodes)^2)
+    // Space: O(nr of nodes) for sumArray + O(height of tree) for recursion stack
+    nrOfTargetPathSums = 0;
+    recursionWithArray(root, sum, []);
+    return nrOfTargetPathSums;
+}
+
+function recursionWithArray(node, sum, sumArray) {
+    // 'sumArray' will contain all the path sums starting from 'node'
+    // Compute sum arrays for left and right then add the node's value to each element. Check at each step if we obtained a target sum and increase the global for if yes
+    if (node === null) return;
+    let sumArrayLeft = [], sumArrayRight = [];
+    recursionWithArray(node.left, sum, sumArrayLeft);
+    recursionWithArray(node.right, sum, sumArrayRight);
+    
+    for(let elem of sumArrayLeft.concat(sumArrayRight)) {
+        let newPathSum = elem + node.val;
+        if(newPathSum === sum) {
+            nrOfTargetPathSums++;
+        }
+        sumArray.push(newPathSum);
+    }
+
+    if(node.val === sum) {
+        nrOfTargetPathSums++;
+    }
+
+    sumArray.push(node.val);
 }
 
 function pathSumSimple(root, sum) {
@@ -80,7 +112,7 @@ let n4 = new TreeNode(3);
 let n5 = new TreeNode(2);
 let n6 = new TreeNode(11);
 let n7 = new TreeNode(3);
-let n8 = new TreeNode(-100);
+let n8 = new TreeNode(-2);
 let n9 = new TreeNode(1);
 
 n1.left = n2;
@@ -92,7 +124,7 @@ n4.left = n7;
 n4.right = n8;
 n5.right = n9;
 
-console.log(pathSum(n1, -100))
+console.log(pathSum(n1, 6))
 
 // let n1 = new TreeNode(0);
 // let n2 = new TreeNode(1);
