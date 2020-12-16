@@ -1,9 +1,68 @@
 // https://leetcode.com/problems/accounts-merge/
 
-const { merge } = require("lodash");
-
 function accountsMerge(accounts) {
-    return accountsMergeBrute(accounts);
+    return accountsMergeWithGraph(accounts);
+}
+
+function accountsMergeWithGraph(accounts) {
+    // N = nr of emails
+    // Time: O(N*logN) = O(N) graph creation + O(N*logN) sorting
+    // Space: O(N)
+    let adjMap = {};
+    let result = [];
+    let emailToName = {};
+
+    let uniqueAccountEmails = [];
+    for (let i = 0; i < accounts.length; i++) { // Time: O(N)
+        let uniqueEmails = removeDuplicatesFromUnsorted(accounts[i].slice(1));
+        uniqueAccountEmails[i] = uniqueEmails;
+    }
+
+    for (let i = 0; i < accounts.length; i++) {
+        let uniqueEmails = uniqueAccountEmails[i];
+        // Create edges between emails from the same account entry
+        for (let k = 0; k < uniqueEmails.length; k++) { // Time: O(N)
+            if (!adjMap[uniqueEmails[k]]) {
+                adjMap[uniqueEmails[k]] = []
+                emailToName[uniqueEmails[k]] = accounts[i][0];
+            }
+            if (k < uniqueEmails.length - 1) {
+                adjMap[uniqueEmails[k]].push(uniqueEmails[k + 1]);
+            }
+            if (k > 0) {
+                adjMap[uniqueEmails[k]].push(uniqueEmails[k - 1]);
+            }
+        }
+    }
+
+    let visited = {};
+    for (let node of Object.keys(adjMap)) {
+        if (!visited[node]) {
+            result.push([emailToName[node]]);
+            dfs(node, adjMap, visited, result);
+            result[result.length - 1].sort();
+        }
+    }
+
+    return result;
+}
+
+function dfs(node, adjMap, visited, result) {
+    visited[node] = true;
+    result[result.length - 1].push(node);
+    for (let neighbor of adjMap[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, adjMap, visited, result);
+        }
+    }
+}
+
+function removeDuplicatesFromUnsorted(a) {
+    let map = {};
+    for (let i = 0; i < a.length; i++) {
+        map[a[i]] = i;
+    }
+    return Object.keys(map);
 }
 
 function accountsMergeBrute(accounts) {
@@ -149,11 +208,9 @@ function accountsMergeWithMap(accounts) {
 
 console.log(accountsMerge(
     [
-        ["Alex", "Alex5@m.co", "Alex4@m.co", "Alex0@m.co"],
-        ["Ethan", "Ethan3@m.co", "Ethan3@m.co", "Ethan0@m.co"],
-        ["Kevin", "Kevin4@m.co", "Kevin2@m.co", "Kevin2@m.co"],
-        ["Gabe", "Gabe0@m.co", "Gabe3@m.co", "Gabe2@m.co"],
-        ["Gabe", "Gabe3@m.co", "Gabe4@m.co", "Gabe2@m.co"]]
-
+        ["John", "johnsmith@mail.com", "john_newyork@mail.com"],
+        ["John", "johnsmith@mail.com", "john00@mail.com"],
+        ["Mary", "mary@mail.com"],
+        ["John", "johnnybravo@mail.com"]]
 ));
 
