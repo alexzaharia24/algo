@@ -3,10 +3,18 @@
 function superEggDrop(K, N) {
     let dp = new Array(N + 1).fill().map(() => new Array(K + 1).fill(Infinity));
     // dp[i][j] = nr of min drops to reach F starting from floor i and having j eggs left
-    return solve(N, K, dp);
+
+    let result = solve(N, K, dp);
+    console.log("for N=" + N, "and K=" + K, "there are", count, "calls")
+    return result;
 }
 
+let count = 1;
 function solve(i, j, dp) {
+    // Time: O(N*K*logN)
+    // Space: O(N*K)
+    count++;
+
     if (i === 0) return 0;
     if (j === 1) return i;
 
@@ -29,7 +37,7 @@ function solve(i, j, dp) {
         let second = solve(i - mid, j, dp);
         dp[i][j] = Math.min(dp[i][j], Math.max(first, second) + 1);
 
-        if(first < second) {
+        if (first < second) {
             // go right
             left = mid + 1;
         } else {
@@ -41,4 +49,4 @@ function solve(i, j, dp) {
     return dp[i][j];
 }
 
-console.log(superEggDrop(3, 14));
+console.log(superEggDrop(10000,1000000));

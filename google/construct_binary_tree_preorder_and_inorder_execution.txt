@@ -1,0 +1,35 @@
+pre:    [3,9,20,15,7]
+in:     [9,3,15,20,7]
+
+construct(_,_, 0, 4)
+    preIdx = 0
+    node = TreeNode(3)
+    preIdx = 1
+    idx = 1
+    leftIn = [0, 0]
+    rightIn = [1, 4]
+
+    node.left = construct(_,_,0,0) === TreeNode(9)
+        preIdx = 1
+        node = TreeNode(9)
+        preIdx = 2
+        0 === 0 => return TreeNode(9)
+    node.right = construct(_,_,2,4)
+        preIdx = 2
+        node = TreeNode(20)
+        preIdx = 3
+        idx = 3
+        leftIn = [2,2]
+        rightIn = [4,4]
+
+        node.left = construct(_,_,2,2) = TreeNode(15)
+            preIdx = 3
+            node = TreeNode(15)
+            preIdx = 4
+            2 == 2 => return TreeNode(15)
+
+        node.right = construct(_,_,4,4)
+            preIdx = 4
+            node = TreeNode(7)
+            preIdx = 5
+            4 === 4 => return TreeNode(4)
