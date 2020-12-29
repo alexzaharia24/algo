@@ -31,4 +31,4 @@ function twoSum(numbers, target) {
     }
 }
 
-console.log(twoSum([2, 3, 4, 7, 11, 15], 9));
+console.log(twoSum([3,24,50,79,88,150,345], 200));
