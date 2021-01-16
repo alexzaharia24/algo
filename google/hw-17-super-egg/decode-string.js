@@ -3,8 +3,43 @@ let digitMap = {
     "0": true, "1": true, "2": true, "3": true, "4": true, "5": true, "6": true, "7": true, "8": true, "9": true,
 }
 
-
 function decodeString(s) {
+    return decodeStringWithStack(s);
+}
+
+function decodeStringWithStack(s) {
+    let stack = [];
+    for (let idx = 0; idx < s.length; idx++) {
+        if (s[idx] !== ']') {
+            stack.push(s[idx]);
+        } else {
+            let toPushToStack = "";
+            let toRepeat = "";
+            while (stack[stack.length - 1] !== '[') {
+                toRepeat = stack[stack.length - 1] + toRepeat;
+                stack.pop();
+            }
+            stack.pop();
+
+            let repeater = "";
+            while (isDigit(stack[stack.length - 1])) {
+                repeater = stack[stack.length - 1] + repeater;
+                stack.pop();
+            }
+
+            repeater = parseInt(repeater);
+
+            for (let i = 0; i < repeater; i++) {
+                toPushToStack += toRepeat;
+            }
+
+            stack.push(toPushToStack);
+        }
+    }
+    return stack.join('');
+}
+
+function decodeStringRecursive(s) {
     // Time: O(Max number of chars) = O(300^9 * 99) time
     console.log(idx)
 
@@ -23,7 +58,7 @@ function decodeString(s) {
         // console.log(`r1 ${repeat}`);
         if (s[idx] === "[") {
             idx++;
-            toRepeat = decodeString(s);
+            toRepeat = decodeStringRecursive(s);
         }
         // console.log(`r2 ${repeat}`);
 
@@ -51,7 +86,7 @@ function decodeString(s) {
 }
 
 function recur(s, idx) {
-    
+
 }
 
 
@@ -59,4 +94,6 @@ function isDigit(s) {
     return digitMap[s] === true;
 }
 
-console.log(decodeString("2[a2[x4[y]]bc]3[cd]ef"))
+// console.log(decodeString("3[a2[b]c]")) 
+console.log(decodeString("100[leetcode]")) 
+// console.log(decodeString("2[a2[x4[y]]bc]3[cd]ef"))
