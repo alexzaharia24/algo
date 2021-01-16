@@ -14,8 +14,9 @@ class LFUCache {
     constructor(capacity) {
         this.capacity = capacity;
         this.size = 0;
-        this.nodes = {};
-        this.frequencies = {};
+        this.nodes = {}; // Mapping of key -> Node
+        this.frequencies = {}; // Will be a mapping of frequency -> [head, tail], where head is the most recently used node with that frequency, the next node will be te 2nd most recently used and so on, and tail will be the least recently used with that frequency
+        this.lowestFreq = 0;
     }
 
     get(key) {
@@ -56,8 +57,9 @@ class LFUCache {
         if (this.size === this.capacity) {
             // Need to evict element with lowest frequency
             // For the moment find the lowest frequency in O(n) time
-            let lowestFreq = this.getLowestFrequency();
-            this.removeLastRecentlyUsed(lowestFreq);
+            // let lowestFreq = this.getLowestFrequency();
+            this.removeLastRecentlyUsed(this.lowestFreq);
+            this.lowestFreq = 1;
         }
 
         if (!this.frequencies[freq]) {
