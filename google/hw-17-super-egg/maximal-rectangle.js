@@ -41,6 +41,8 @@ function maximalRectangle(matrix) {
 function getMaxAreaHistogramLike(row, matrix, cols, levelHeights) {
     /**
      * Optimized. Reduced problem to finding the max rectangle in histogram: https://leetcode.com/problems/largest-rectangle-in-histogram/
+     * Time: O(N)
+     * Space: O(N)
      */
 
     let maxArea = 0;
@@ -117,7 +119,6 @@ function getFirstSmallestToRight(histogram) {
     }
     return idxOfSmallests.reverse();
 }
-
 
 function getMaxAreaMSquared(endRow, endCol, levelHeights) {
     /**
