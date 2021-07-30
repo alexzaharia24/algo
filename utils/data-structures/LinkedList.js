@@ -170,19 +170,24 @@ class LinkedList {
     }
 }
 
-let LL = new LinkedList();
-let n1 = new Node(1);
-let n2 = new Node(2);
-let n3 = new Node(3);
-let n4 = new Node(4);
-LL.add(n1);
-LL.add(n2);
-LL.add(n3);
-console.log(LL.toString());
-LL.delete(n3);
-LL.delete(n2);
-LL.delete(n1);
-// LL.delete(n2);
+module.exports = {
+    Node: Node, 
+    LinkedList: LinkedList
+}
+
+// let LL = new LinkedList();
+// let n1 = new Node(1);
+// let n2 = new Node(2);
+// let n3 = new Node(3);
+// let n4 = new Node(4);
+// LL.add(n1);
+// LL.add(n2);
+// LL.add(n3);
+// console.log(LL.toString());
 // LL.delete(n3);
-// LL.delete(n4);
-console.log(LL.toString());
+// LL.delete(n2);
+// LL.delete(n1);
+// // LL.delete(n2);
+// // LL.delete(n3);
+// // LL.delete(n4);
+// console.log(LL.toString());
