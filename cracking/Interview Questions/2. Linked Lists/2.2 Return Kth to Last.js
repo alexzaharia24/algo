@@ -4,17 +4,18 @@
 const LL = require('../../../utils/data-structures/LinkedList');
 
 function findKthToLast(node, K) {
-    if(K === 0) return null;
+    if (K === 0) return null;
     let current = node;
     let currentPlusK = node;
-    let leftToGo = K-1;
-    while(leftToGo > 0 && currentPlusK.next !== null) {
+    let leftToGo = K - 1;
+
+    while (leftToGo > 0 && currentPlusK.next !== null) {
         leftToGo--;
         currentPlusK = currentPlusK.next;
     }
-    if(leftToGo > 0) return null;
+    if (leftToGo > 0) return null;
 
-    while(currentPlusK.next !== null) {
+    while (currentPlusK.next !== null) {
         current = current.next;
         currentPlusK = currentPlusK.next;
     }
@@ -22,20 +23,41 @@ function findKthToLast(node, K) {
     return current;
 }
 
+function findKthToLastRefined(node, K) {
+    if (K === 0) return null;
+    let current = node;
+    let currentPlusK = node;
+
+    for (let i = 0; i < K; i++) {
+        if (currentPlusK === null) {
+            return null;
+        }
+        currentPlusK = currentPlusK.next;
+    }
+
+    while (currentPlusK !== null) {
+        current = current.next;
+        currentPlusK = currentPlusK.next;
+    }
+
+    return current;
+}
+
+// O(N) time, O(N) space (recursion stack)
 function findKthToLastRecursive(node, K) {
-    return recursion(node, K, {value: 0});
+    return recursion(node, K, { value: 0 });
 }
 
 function recursion(node, K, idxFromEnd) {
-    if(node === null) return null;
-    
+    if (node === null) return null;
+
     let result = recursion(node.next, K, idxFromEnd);
-    
+
     idxFromEnd.value += 1;
-    if(idxFromEnd.value === K) {
+    if (idxFromEnd.value === K) {
         return node;
     }
-    
+
     return result;
 }
 
@@ -47,6 +69,6 @@ let n3 = new LL.Node(3);
 let n4 = new LL.Node(4);
 let n5 = new LL.Node(5);
 let n6 = new LL.Node(6);
-list.addAll([n1,n2,n3,n4,n5,n6])
+list.addAll([n1, n2, n3, n4, n5, n6])
 
-console.log(findKthToLastRecursive(list.first, 4));
+console.log(findKthToLast(list.first, 4));
