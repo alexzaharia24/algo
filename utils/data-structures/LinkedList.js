@@ -49,6 +49,16 @@ class LinkedList {
     }
 
     /**
+     * Add multiple nodes to the end of the list
+     * @param {Node[]} nodes
+     */
+    addAll(nodes) {
+        for(let node of nodes) {
+            this.add(node);
+        }
+    }
+
+    /**
      * Find the node in the list corresponding to the given one
      * @param {The node to find} node 
      * @returns If it exists in the list, returns the node from the list with a 'prev' field containing the previous node in the list. 
@@ -107,6 +117,19 @@ class LinkedList {
     }
 
     /**
+     * "Delete" the node by replacing its value with the one from the next one and then skiping it. Doesn't work for first or last node in the list.
+     * @param {The node to delete} node 
+     * @returns True if the node exists and has been deleted successfully. 
+     *          False otherwise
+     */
+    deleteO1(node) {
+        if(node === this.first || node === this.last || node === null) return false;
+        node.value = node.next.value;
+        node.next = node.next.next;
+        return true;
+    }
+
+    /**
      * Return the string representation of the list containing all the nodes
      */
     toString() {
@@ -131,7 +154,7 @@ class LinkedList {
             node = node.next;
         }
 
-        string +="]";
+        string += "]";
         return string;
     }
 
@@ -168,10 +191,20 @@ class LinkedList {
 
         return slow;
     }
+
+    findMiddleOfList() {
+        let slow = this.first, fast = this.first;
+        while (fast.next !== null && fast.next.next !== null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        return slow;
+    }
 }
 
 module.exports = {
-    Node: Node, 
+    Node: Node,
     LinkedList: LinkedList
 }
 
@@ -183,6 +216,8 @@ module.exports = {
 // LL.add(n1);
 // LL.add(n2);
 // LL.add(n3);
+// LL.add(n4);
+// console.log(LL.findMiddleOfList());
 // console.log(LL.toString());
 // LL.delete(n3);
 // LL.delete(n2);
