@@ -203,9 +203,27 @@ class LinkedList {
     }
 }
 
+class LinkedListUtils {
+    constructor() {}
+    static toStringFromHead(head) {
+        if(head === null) return null;
+        let string = "";
+        while(head !== null) {
+            string += head.toString();
+            if(head.next !== null) {
+                string += ", ";
+            }
+            head = head.next;
+        }
+
+        return string;
+    }
+}
+
 module.exports = {
     Node: Node,
-    LinkedList: LinkedList
+    LinkedList: LinkedList,
+    Utils: LinkedListUtils
 }
 
 // let LL = new LinkedList();
