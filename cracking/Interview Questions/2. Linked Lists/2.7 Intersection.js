@@ -6,7 +6,6 @@
 
 const LL = require('../../../utils/data-structures/LinkedList');
 
-
 function intersectionWithHashMap(head1, head2) {
     if(head1 === null || head2 === null) return null;
     let map = new Map();
