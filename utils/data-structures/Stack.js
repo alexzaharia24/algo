@@ -63,13 +63,13 @@ class StackWithLinkedList {
 }
 
 let stack = new StackWithLinkedList();
-stack.push(1);
-stack.push(2);
-stack.push(3);
-console.log(stack.top);
-console.log(stack.pop());
-console.log(stack.pop());
-console.log(stack.peek());
-console.log(stack.isEmpty());
-console.log(stack.pop());
-console.log(stack.isEmpty());
+// stack.push(1);
+// stack.push(2);
+// stack.push(3);
+// console.log(stack.top);
+// console.log(stack.pop());
+// console.log(stack.pop());
+// console.log(stack.peek());
+// console.log(stack.isEmpty());
+// console.log(stack.pop());
+// console.log(stack.isEmpty());
