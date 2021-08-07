@@ -2,7 +2,7 @@
 // which returns the minimum element? Push, pop and min should all operate in 0(1) time.
 // Hints: #27, #59, #78
 
-class MinStack {
+class MinStackWithArray {
     constructor() {
         this.stack = [];
         this.minsSoFar = [];
@@ -38,7 +38,72 @@ class MinStack {
     }
 }
 
-let stack = new MinStack();
+class StackNode {
+    constructor(value, next) {
+        this.value = value ?? null;
+        this.next = next ?? null;
+    }
+}
+
+class Stack {
+    constructor() {
+        this.top = null;
+    }
+
+    push(item) {
+        let newNode = new StackNode(item, this.top);
+        this.top = newNode;
+    }
+
+    pop() {
+        if(this.isEmpty()) throw new Error("Stack is empty, cannot pop");
+        let item = this.top.value;
+        this.top = this.top.next;
+        return item;
+    }
+
+    peek() {
+        if(this.isEmpty()) throw new Error("Stack is empty, cannot peek");
+        return this.top.value;
+    }
+
+    isEmpty() {
+        return this.top === null;
+    }
+}
+
+class MinStackWithSecondStack extends Stack{
+    constructor() {
+        super();
+        this.minStack = new Stack();
+    }
+
+    push(item) {
+        let newNode = new StackNode(item, this.top);
+        this.top = newNode;
+        if(this.minStack.isEmpty() || item < this.minStack.peek()) {
+            this.minStack.push(item);
+        }
+    }
+
+    pop() {
+        if (this.isEmpty()) throw new Error("Stack is empty, cannot pop");
+        let item = this.top.value;
+        this.top = this.top.next;
+        if(item === this.minStack.peek()) {
+            this.minStack.pop();
+        }
+
+        return item;
+    }
+
+    min() {
+        if (this.isEmpty()) throw new Error("Stack is empty, cannot get min");
+        return this.minStack.peek();
+    }
+}
+
+let stack = new MinStackWithSecondStack();
 stack.push(3);
 stack.push(2);
 stack.push(4);
