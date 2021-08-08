@@ -79,7 +79,7 @@ class Stack {
     }
 }
 
-class SetOfStacks {
+class SetOfStacksWithStackOfStacks {
     constructor(capacity) {
         this.capacity = capacity;
         this.size = 0;
@@ -137,17 +137,105 @@ class SetOfStacks {
     }
 }
 
-let setOfStacks = new SetOfStacks(3);
+class SetOfStacksWithListOfStacks {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.set = [];
+    }
+
+    push(item) {
+        if(this.isEmpty() || this.isLastStackFull()) {
+            this.addNewStack();
+        }
+
+        this.getLastStack().push(item);
+    }
+
+    pop() {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Set of Stacks is empty, cannot pop");
+        }
+
+        let item = this.getLastStack().pop();
+        if(this.isLastStackEmpty()) {
+            // Pop the empty stack from the set
+            this.set.pop();
+        }
+        return item;
+    }
+
+    popAt(index) {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Set of Stacks is empty, cannot pop");
+        }
+
+        if(index >= this.set.length) throw new Error(`No stack with index ${index} in the set`);
+
+        let stack = this.set[index];
+        let item = stack.pop();
+        if(stack.isEmpty()) {
+            // Pop the empty stack from the set
+            this.set.splice(index, 1);
+        }
+
+        return item;
+    }
+
+    peek() {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Set of Stacks is empty, cannot peek");
+        }
+
+        return this.getLastStack().peek();
+    }
+
+    addNewStack() {
+        this.set.push(new Stack(this.capacity))
+    }
+
+    isLastStackFull() {
+        if(this.isEmpty()) throw new NoStackException("No stack yet.");
+        
+        return this.getLastStack().isFull();
+    }
+
+    isLastStackEmpty() {
+        if(this.isEmpty()) throw new NoStackException("No stack yet.");
+
+        return this.getLastStack().isEmpty();
+    }
+
+    getLastStack() {
+        return this.set[this.set.length-1];
+    }
+    
+    isEmpty() {
+        return this.set.length === 0;
+    }
+}
+
+let setOfStacks = new SetOfStacksWithListOfStacks(3);
+// setOfStacks.push(1);
+// setOfStacks.push(2);
+// setOfStacks.push(3);
+// setOfStacks.push(4);
+// console.log(setOfStacks.peek());
+// console.log(setOfStacks.set)
+// setOfStacks.pop();
+// setOfStacks.pop();
+// setOfStacks.pop();
+// console.log(setOfStacks.peek());
+// setOfStacks.pop();
+
 setOfStacks.push(1);
 setOfStacks.push(2);
 setOfStacks.push(3);
 setOfStacks.push(4);
+console.log(setOfStacks.set)
+setOfStacks.popAt(0);
 console.log(setOfStacks.peek());
-console.log(setOfStacks.topStack)
-setOfStacks.pop();
-setOfStacks.pop();
-setOfStacks.pop();
+setOfStacks.popAt(1);
 console.log(setOfStacks.peek());
-setOfStacks.pop();
-setOfStacks.pop();
-
+console.log(setOfStacks.set)
+console.log(setOfStacks.pop())
+console.log(setOfStacks.pop())
