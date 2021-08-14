@@ -26,7 +26,6 @@ class NoStackException extends Error {
     }
 }
 
-
 class StackNode {
     constructor(value, next) {
         this.value = value ?? null;
@@ -179,6 +178,161 @@ class SetOfStacksWithListOfStacks {
         }
 
         return item;
+    }
+
+    peek() {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Set of Stacks is empty, cannot peek");
+        }
+
+        return this.getLastStack().peek();
+    }
+
+    addNewStack() {
+        this.set.push(new Stack(this.capacity))
+    }
+
+    isLastStackFull() {
+        if(this.isEmpty()) throw new NoStackException("No stack yet.");
+        
+        return this.getLastStack().isFull();
+    }
+
+    isLastStackEmpty() {
+        if(this.isEmpty()) throw new NoStackException("No stack yet.");
+
+        return this.getLastStack().isEmpty();
+    }
+
+    getLastStack() {
+        return this.set[this.set.length-1];
+    }
+    
+    isEmpty() {
+        return this.set.length === 0;
+    }
+}
+
+
+
+// Set of stacks with popAt() and rollover when popping from a middle stack
+class StackNode {
+    constructor(value, next, prev) {
+        this.value = value ?? null;
+        this.next = next ?? null;
+        this.prev = prev ?? null;
+    }
+}
+
+class StackRollover {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        this.top = null;
+        this.bottom = null;
+    }
+
+    push(item) {
+        if(this.isFull()) {
+            throw new StackFullException("Stack is full, cannot push");
+        }
+
+        this.top = new StackNode(item, this.top);
+        if(this.bottom === null) this.bottom = this.top;
+        this.size++;
+    }
+
+    pop() {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Stack is empty, cannot pop");
+        }
+
+        let item = this.top.value;
+        if(this.bottom === this.top) this.bottom = null;
+        this.top = this.top.next;
+        this.size--;
+        return item;
+    }
+
+    popBottom() {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Stack is empty, cannot pop");
+        }
+
+        let item = this.bottom.value;
+        if(this.top === this.bottom) this.top = null;
+        this.bottom = this.bottom.prev;
+        this.size--;
+        return item;
+    }
+
+    peek() {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Stack is empty, cannot peek");
+        }
+
+        return this.top.value;
+    }
+    
+
+    isFull() {
+        return this.size === this.capacity;
+    }
+
+    isEmpty() {
+        return this.top === null;
+    }
+}
+
+class SetOfStacksWithListOfStacksAndRolloverOnPop {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.set = [];
+    }
+
+    push(item) {
+        if(this.isEmpty() || this.isLastStackFull()) {
+            this.addNewStack();
+        }
+
+        this.getLastStack().push(item);
+    }
+
+    pop() {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Set of Stacks is empty, cannot pop");
+        }
+
+        let item = this.getLastStack().pop();
+        if(this.isLastStackEmpty()) {
+            // Pop the empty stack from the set
+            this.set.pop();
+        }
+        return item;
+    }
+
+    popAt(index) {
+        if(this.isEmpty()) {
+            throw new StackEmptyException("Set of Stacks is empty, cannot pop");
+        }
+
+        if(index >= this.set.length) throw new Error(`No stack with index ${index} in the set`);
+
+        let stack = this.set[index];
+        let item = stack.pop();
+        if(stack.isEmpty()) {
+            // Pop the empty stack from the set
+            this.set.splice(index, 1);
+        }
+
+        return item;
+    }
+
+    rollover(index) {
+        // Pop from bottom of stack set[index] and push to stack set[index-1]
+        if(index - 1 < 0) return null;
+        let stack = this.set[index];
+        let bottomItem = stack
     }
 
     peek() {
