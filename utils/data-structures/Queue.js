@@ -73,11 +73,11 @@ class Dequeue {
     }
 
     pushFront(item) {
-        if(this.isFull()) {
+        if (this.isFull()) {
             throw new Error("Dequeue full. Cannot push");
         }
 
-        if(this.front === null) {
+        if (this.front === null) {
             this.front = new DequeueNode(item);
             this.back = this.front;
             return true;
@@ -86,7 +86,7 @@ class Dequeue {
         let newFront = new DequeueNode(item, this.front);
         this.front.prev = newFront;
         this.front = newFront;
-        if(this.back === newFront.next) {
+        if (this.back === newFront.next) {
             // In case of only 1 element in the dequeue
             this.back.prev = newFront;
         }
@@ -96,11 +96,11 @@ class Dequeue {
     }
 
     pushBack(item) {
-        if(this.isFull()) {
+        if (this.isFull()) {
             throw new Error("Dequeue full. Cannot push");
         }
 
-        if(this.front === null) {
+        if (this.front === null) {
             this.front = new DequeueNode(item);
             this.back = this.front;
             return true;
@@ -109,29 +109,29 @@ class Dequeue {
         let newBack = new DequeueNode(item, null, this.back);
         this.back.next = newBack;
         this.back = newBack;
-        if(this.front = newBack.prev) {
+        if (this.front = newBack.prev) {
             // In case of only 1 element in the dequeue
             this.front.next = newBack;
         }
-        
+
         this.size++;
         return true;
     }
 
     popFront() {
-        if(this.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Error("Dequeue empty. Cannot pop");
         }
 
         let item = this.peekFront();
 
-        if(this.back === this.front) {
+        if (this.back === this.front) {
             this.front = null;
             this.back = null;
         } else {
             this.front = this.front.next;
 
-            if(this.front !== null) {
+            if (this.front !== null) {
                 this.front.prev = null;
             }
         }
@@ -142,7 +142,7 @@ class Dequeue {
     }
 
     peekFront() {
-        if(this.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Error("Dequeue empty. Cannot peek");
         }
 
@@ -150,19 +150,19 @@ class Dequeue {
     }
 
     popBack() {
-        if(this.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Error("Dequeue empty. Cannot pop");
         }
 
         let item = this.peekBack();
-        
-        if(this.back === this.front) {
+
+        if (this.back === this.front) {
             this.front = null;
             this.back = null;
         } else {
             this.back = this.back.prev;
 
-            if(this.back !== null) {
+            if (this.back !== null) {
                 this.back.next = null;
             }
         }
@@ -173,7 +173,7 @@ class Dequeue {
     }
 
     peekBack() {
-        if(this.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Error("Dequeue empty. Cannot peek");
         }
 
@@ -191,9 +191,9 @@ class Dequeue {
     toString() {
         let string = "";
         let node = this.front;
-        while(node !== null) {
+        while (node !== null) {
             string += node.toString();
-            if(node.next !== null) {
+            if (node.next !== null) {
                 string += " -> ";
             }
             node = node.next;
@@ -224,7 +224,7 @@ class Dequeue {
 
 //// Dequeue Example
 
-let dequeue =new Dequeue(3);
+let dequeue = new Dequeue(3);
 dequeue.pushBack(1);
 console.log(dequeue.toString())
 dequeue.pushBack(2);
