@@ -9,25 +9,25 @@
 const { Queue } = require('../../../utils/data-structures/Queue');
 
 class Animal {
-    constructor(datetime) {
-        this.datetime = datetime ?? Infinity; // Nr of miliseconds
+    constructor(order) {
+        this.order = order ?? Infinity; // Nr of miliseconds
     }
 }
 
 class Dog extends Animal {
-    constructor(datetime) {
-        super(datetime);
+    constructor(order) {
+        super(order);
     }
 
     toString() {
-        return `dog@${this.datetime}`;
+        return `dog@${this.order}`;
     }
 }
 class Cat extends Animal {
-    constructor(datetime) { super(datetime); }
+    constructor(order) { super(order); }
 
     toString() {
-        return `cat@${this.datetime}`;
+        return `cat@${this.order}`;
     }
 }
 
@@ -35,12 +35,12 @@ class AnimalShelter {
     constructor() {
         this.dogs = new Queue();
         this.cats = new Queue();
+        this.order = 0;
     }
 
     enqueue(animal) {
-        animal.datetime = Date.now();
+        animal.order = ++this.order;
         if (animal instanceof Dog) {
-            console.log('dog #:', animal.datetime);
             this.dogs.add(animal);
         } else if (animal instanceof Cat) {
             this.cats.add(animal);
@@ -57,10 +57,10 @@ class AnimalShelter {
         let dogTime = Infinity, catTime = Infinity;
 
         if (!this.dogs.isEmpty()) {
-            dogTime = this.dogs.peek().datetime;
+            dogTime = this.dogs.peek().order;
         }
         if (!this.cats.isEmpty()) {
-            catTime = this.cats.peek().datetime;
+            catTime = this.cats.peek().order;
         }
 
         let animal = null;
@@ -103,5 +103,5 @@ class AnimalShelter {
 
     console.log('dequeueAny: ', animalShelter.dequeueAny());
     console.log('dequeueAny: ', animalShelter.dequeueAny());
-    console.log('dequeueDog: ', animalShelter.dequeueDog());
+    console.log('dequeueAny: ', animalShelter.dequeueAny());
 })();

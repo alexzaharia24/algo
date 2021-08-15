@@ -104,5 +104,6 @@ let stack = new StackWithLinkedList();
 // console.log(stack.isEmpty());
 
 module.exports = {
+    Stack: StackWithArray,
     StackWithLinkedList: StackWithLinkedList
 }

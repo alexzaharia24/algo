@@ -9,6 +9,14 @@ class QueueNode {
         this.value = value ?? null;
         this.next = next ?? null;
     }
+
+    toString() {
+        if(typeof this.value === 'object') {
+            return this.value.toString();
+        }
+
+        return this.value;
+    }
 }
 
 /**
@@ -47,6 +55,20 @@ class Queue {
 
     isEmpty() {
         return this.start === null;
+    }
+
+    toString() {
+        let string = "";
+        let node = this.start;
+        while (node !== null) {
+            string += node.toString();
+            if (node.next !== null) {
+                string += " -> ";
+            }
+            node = node.next;
+        }
+
+        return string;
     }
 }
 
@@ -235,3 +257,8 @@ console.log('pop: ', dequeue.popBack());
 console.log(dequeue.toString())
 console.log('pop: ', dequeue.popFront());
 console.log(dequeue.toString())
+
+
+module.exports = {
+    Queue: Queue
+}
