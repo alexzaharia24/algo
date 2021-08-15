@@ -5,31 +5,38 @@ const Stack = require('../../../utils/data-structures/Stack');
 
 class MyQueue {
     constructor() {
-        this.stack1 = new Stack.StackWithLinkedList();
-        this.stack2 = new Stack.StackWithLinkedList();
+        this.stackNewest = new Stack.StackWithLinkedList();
+        this.stackOldest = new Stack.StackWithLinkedList();
     }
 
     add(item) {
-        // Stack1 should be empty right now and Stack2 will hold all the elements so far in FIFO order
-        this.moveItems(this.stack2, this.stack1);
-        this.stack2.push(item);
-        this.moveItems(this.stack1, this.stack2);
+        // Push only on stackNewest. It will hold the most recent elements
+        this.stackNewest.push(item);
     }
 
     remove() {
-        // Stack2 holds all the elements so far in FIFO order.
+        // Remove only from stackOldest. If it is empty then move all items from stackNewest to stackOldest. This is better than continuously moving from newest to oldest and back again. This will be amortized to O(1) if there are a lot of elements in stackNewest
         if (this.isEmpty()) {
             throw new Error("Queue empty. Cannot remove");
         }
-        return this.stack2.pop();
+        if(this.stackOldest.isEmpty()) {
+            this.moveItems(this.stackNewest, this.stackOldest);
+        }
+
+        // stackOldest holds the elements in FIFO order
+        return this.stackOldest.pop();
     }
 
     peek() {
-        // Stack2 holds all the elements so far in FIFO order.
+        // stackOldest holds the elements in FIFO order
         if (this.isEmpty()) {
             throw new Error("Queue empty. Cannot peek");
         }
-        return this.stack2.peek();
+
+        if(this.stackOldest.isEmpty()) {
+            this.moveItems(this.stackNewest, this.stackOldest);
+        }
+        return this.stackOldest.peek();
     }
 
     moveItems(stackA, stackB) {
@@ -40,12 +47,12 @@ class MyQueue {
     }
 
     isEmpty() {
-        return this.stack2.isEmpty();
+        return this.stackNewest.isEmpty() && this.stackOldest.isEmpty();
     }
 
     toString() {
-        let string = `stack1: ${this.stack1.toString()}\n`;
-        string += `stack2: ${this.stack2.toString()}`;
+        let string = `stackNewest: ${this.stackNewest.toString()}\n`;
+        string += `stackOldest: ${this.stackOldest.toString()}`;
         return string;
     }
 }
@@ -58,5 +65,6 @@ console.log(queue.toString());
 queue.add(3);
 console.log(queue.toString());
 console.log('remove:', queue.remove());
+console.log(queue.toString());
 console.log('remove:', queue.remove());
 console.log('peek:', queue.peek());
