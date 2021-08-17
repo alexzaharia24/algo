@@ -268,6 +268,14 @@ class HeapWithArray {
         return this.items.length;
     }
 
+    bubbleUp(idx) {
+        throw new Error("This is a function of the abstract class Heap. Cannot use");
+    }
+
+    bubbleDown(idx) {
+        throw new Error("This is a function of the abstract class Heap. Cannot use");
+    }
+
     toString() {
         return this.items.toString();
     }
@@ -309,6 +317,42 @@ class MinHeapWithArray extends HeapWithArray {
     }
 }
 
+class MaxHeapWithArray extends HeapWithArray {
+    constructor() {
+        super();
+    }
+
+    bubbleUp(idx) {
+        if (!this.hasParent(idx)) return;
+        let parentIdx = this.getParentIdx(idx);
+        if (this.items[idx] > this.items[parentIdx]) {
+            // Swap child with parent
+            [this.items[idx], this.items[parentIdx]] = [this.items[parentIdx], this.items[idx]];
+            this.bubbleUp(parentIdx);
+        }
+    }
+
+    bubbleDown(idx) {
+        let maxChildIdx = -1;
+        if(this.hasLeftChild(idx)) {
+            let leftIdx = this.getLeftChildIdx(idx);
+            maxChildIdx = leftIdx;
+            if(this.hasRightChild(idx)) {
+                let rightIdx = this.getRightChildIdx(idx);
+                maxChildIdx = this.items[leftIdx] > this.items[rightIdx] ? leftIdx : rightIdx; 
+            }
+        }
+
+        if(maxChildIdx !== -1) {
+            if(this.items[idx] < this.items[maxChildIdx]) {
+                // Swap with max child
+                [this.items[idx], this.items[maxChildIdx]] = [this.items[maxChildIdx], this.items[idx]];
+                this.bubbleDown(maxChildIdx);
+            }
+        }
+    }
+}
+
 //// Example MinHeapWithTree 
 
 // let minHeapRoot = new HeapNode(4);
@@ -332,8 +376,9 @@ class MinHeapWithArray extends HeapWithArray {
 // console.log('pop: ', minHeap.pop());
 // minHeap.printInorder();
 
-//// Example MinHeapWithArray
-let minHeapArray = new MinHeapWithArray();
+//// Example MinHeapWithArray & MaxHeapWithArray
+// let minHeapArray = new MinHeapWithArray();
+let minHeapArray = new MaxHeapWithArray();
 minHeapArray.push(10);
 minHeapArray.push(7);
 minHeapArray.push(6);
@@ -343,3 +388,8 @@ minHeapArray.pop();
 minHeapArray.pop();
 minHeapArray.pop();
 console.log(minHeapArray.toString());
+
+module.exports = {
+    MinHeap: MinHeapWithArray,
+    MaxHeap: MaxHeapWithArray
+}
