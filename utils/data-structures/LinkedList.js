@@ -99,7 +99,6 @@ class LinkedList {
      */
     delete(node) {
         let foundNode = this.findNodeWithPrevious(node);
-        console.log("Found node: ", foundNode);
         // `node` not in list
         if (foundNode === null) return false;
         if (foundNode.prev !== null) {

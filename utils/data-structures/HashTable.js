@@ -175,7 +175,6 @@ class HashTableWithSideChaining {
     }
 
     get(key) {
-        console.log(`get {${key}}`)
         let hash = this._hash(key);
         if (this.table[hash] !== undefined) {
             let node = this.table[hash].first;
@@ -188,14 +187,11 @@ class HashTableWithSideChaining {
             }
         }
 
-        console.log("get key: ", key, "hash: ", hash, "bucket: ", this.table[hash])
-
         return null;
     }
 
     set(key, value) {
         // check if already exists. If not then insert
-        console.log(`set {${key}, ${value}}`)
         let entry = this._getEntry(key);
         if (entry !== null) {
             // Entry is node in linked list so we can update it here
@@ -220,8 +216,6 @@ class HashTableWithSideChaining {
         bucket.add(node);
         this.table[hash] = bucket;
         this.size++;
-
-        console.log(`Table after set {${key}, ${value}}: ${this.table}`)
     }
 
     delete(key) {
@@ -256,7 +250,6 @@ class HashTableWithSideChaining {
     }
 
     _increaseCapacity() {
-        console.log("Initial table: ", this.table.toString());
         let newCapacity = this.table.length * 2;
         let newTable = new Array(newCapacity);
         for (let bucket of this.table) {
@@ -279,8 +272,6 @@ class HashTableWithSideChaining {
         }
 
         this.table = newTable;
-        console.log("New table: ", this.table.toString());
-        console.log("-----------");
     }
 
     _getEntry(key) {
@@ -304,7 +295,6 @@ class HashTableWithSideChaining {
             hash = (hash + key.charCodeAt(i)) % capacity;
         }
 
-        console.log(`key: ${key}, hash: ${hash}`);
         return hash;
     }
 }

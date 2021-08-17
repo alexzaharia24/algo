@@ -91,7 +91,7 @@ class StackWithLinkedList {
     }
 }
 
-let stack = new StackWithLinkedList();
+// let stack = new StackWithLinkedList();
 // stack.push(1);
 // stack.push(2);
 // stack.push(3);

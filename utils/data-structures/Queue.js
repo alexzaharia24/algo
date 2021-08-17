@@ -246,19 +246,20 @@ class Dequeue {
 
 //// Dequeue Example
 
-let dequeue = new Dequeue(3);
-dequeue.pushBack(1);
-console.log(dequeue.toString())
-dequeue.pushBack(2);
-console.log(dequeue.toString())
-dequeue.pushFront(3);
-console.log(dequeue.toString())
-console.log('pop: ', dequeue.popBack());
-console.log(dequeue.toString())
-console.log('pop: ', dequeue.popFront());
-console.log(dequeue.toString())
+// let dequeue = new Dequeue(3);
+// dequeue.pushBack(1);
+// console.log(dequeue.toString())
+// dequeue.pushBack(2);
+// console.log(dequeue.toString())
+// dequeue.pushFront(3);
+// console.log(dequeue.toString())
+// console.log('pop: ', dequeue.popBack());
+// console.log(dequeue.toString())
+// console.log('pop: ', dequeue.popFront());
+// console.log(dequeue.toString())
 
 
 module.exports = {
-    Queue: Queue
+    Queue: Queue,
+    Dequeue: Dequeue
 }
