@@ -1,3 +1,5 @@
+const { Queue } = require('./Queue');
+
 // A graph can be represented as:
 // - Adjacency list
 //     - Using classes
@@ -44,10 +46,10 @@ n2.neighbours.push(n3);
 n3.neighbours.push(n2);
 
 let graphWithClass = new Graph();
-graphWithClass.nodes.push(n0, n1, n2, n3);
+graphWithClass.nodes.push(n0);
 // graphWithClass.print();
 
-// // 1.2 Adjancey list with integer list
+// // 1.2 Adjaceny list with integer list
 let graphWithIntegerList = [
     [1, 2], // 0
     [0, 2], // 1
@@ -55,8 +57,8 @@ let graphWithIntegerList = [
     [2]  // 3
 ]
 
-// // 2.1 Adjancey matrix
-let graphWithAdjanceyMatrix = [
+// // 2.1 Adjaceny matrix
+let graphWithAdjacenyMatrix = [
     [false, true, true, false], // 0
     [true, false, true, false], // 1
     [true, true, false, true], // 2
@@ -92,17 +94,17 @@ function dfsWithGraphClass(graph) {
  * Visit the nodes of the graph, represented with an integer adjaceny list, in DFS order
  * @param {number[][]} graph The graph
  */
-function dfsWithIntegerAdjanceyList(graph) {
+function dfsWithIntegerAdjacenyList(graph) {
     let visited = new Map();
     // Go through the vertices
     for (let node = 0; node < graph.length; node++) {
         // console.log('V: ', node, visited)
         if (visited.get(node) === undefined) {
-            dfsWithIntegerAdjanceyListRecursion(node, visited, graph);
+            dfsWithIntegerAdjacenyListRecursion(node, visited, graph);
         }
     }
 
-    function dfsWithIntegerAdjanceyListRecursion(node, visited, graph) {
+    function dfsWithIntegerAdjacenyListRecursion(node, visited, graph) {
         if (node === null) return;
         visited.set(node, true);
         console.log("visited: ", node);
@@ -112,50 +114,134 @@ function dfsWithIntegerAdjanceyList(graph) {
             if (visited.get(neighbour) === undefined) {
                 // console.log("not visited: ", neighbour);
                 // Node not visited yet
-                dfsWithIntegerAdjanceyListRecursion(neighbour, visited, graph);
+                dfsWithIntegerAdjacenyListRecursion(neighbour, visited, graph);
             }
         }
     }
 }
 
 /**
- * Visit the nodes of the graph, represented with an integer adjaceny matrix, in DFS order
- * @param {number[][]} graph The graph
+ * Visit the nodes of the graph, represented with a boolean adjaceny matrix, in DFS order
+ * @param {boolean[][]} graph The graph
  */
-function dfsWithIntegerAdjanceyMatrix(graph) {
+function dfsWithIntegerAdjacenyMatrix(graph) {
     let visited = new Map();
     // Go through the vertices
     for (let node = 0; node < graph.length; node++) {
         // console.log('V: ', node, visited)
         if (visited.get(node) === undefined) {
-            dfsWithIntegerAdjanceyMatrixRecursion(node, visited, graph);
+            dfsWithIntegerAdjacenyMatrixRecursion(node, visited, graph);
         }
     }
 
-    function dfsWithIntegerAdjanceyMatrixRecursion(node, visited, graph) {
+    function dfsWithIntegerAdjacenyMatrixRecursion(node, visited, graph) {
         if (node === null) return;
         visited.set(node, true);
         console.log("visited: ", node);
         for (let neighbour = 0; neighbour < graph.length; neighbour++) {
             // console.log('neighbour:', neighbour);
             // Verify if there is an edge between the vertices
-            if(graph[node][neighbour]) {
+            if (graph[node][neighbour]) {
                 if (visited.get(neighbour) === undefined) {
                     // console.log("not visited: ", neighbour);
                     // Node not visited yet
-                    dfsWithIntegerAdjanceyMatrixRecursion(neighbour, visited, graph);
+                    dfsWithIntegerAdjacenyMatrixRecursion(neighbour, visited, graph);
                 }
             }
-            
+
         }
     }
 }
 
-function bfs(root) {
+/**
+ * Visit the nodes of the graph, represented with a Graph class, in BFS order
+ * @param {Graph} graph The graph
+ */
+function bfsWithGraphClass(graph) {
+    if (graph === null || graph.nodes.length === 0) return;
+    let queue = new Queue(), visited = new Map();
+    for (let node of graph.nodes) {
+        queue.add(node);
+        visited.set(node, true);
+    }
 
+    while (!queue.isEmpty()) {
+        let node = queue.remove();
+        visited.set(node, true);
+        console.log("visited: ", node.toString());
+
+        for (let neighbour of node.neighbours) {
+            if (visited.get(neighbour) === undefined) {
+                console.log("not visited: ", neighbour.toString())
+                // Not yet visited
+                visited.set(neighbour, true);
+                queue.add(neighbour);
+            }
+        }
+    }
 }
 
-// DFS example
+/**
+ * Visit the nodes of the graph, represented with an integer adjaceny list, in BFS order
+ * @param {number[][]} graph The graph
+ * @param {number} root The root
+ */
+function bfsWithIntegerAdjacenyList(graph, root) {
+    if (graph === null || graph.length === 0 || root === null || root < 0 || root > graph.length) return;
+    let queue = new Queue(), visited = new Map();
+    queue.add(root);
+    visited.set(root, true)
+
+    while (!queue.isEmpty()) {
+        let node = queue.remove();
+        console.log("visited: ", node.toString());
+
+        for (let neighbour of graph[node]) {
+            if (visited.get(neighbour) === undefined) {
+                console.log("not visited: ", neighbour.toString())
+                // Not yet visited
+                visited.set(neighbour, true);
+                queue.add(neighbour);
+            }
+        }
+    }
+}
+
+/**
+ * Visit the nodes of the graph, represented with a boolean adjaceny matrix, in BFS order
+ * @param {boolean[][]} graph The graph
+ * @param {number} root The root
+ */
+function bfsWithIntegerAdjacenyMatrix(graph, root) {
+    if (graph === null || graph.length === 0) return;
+    let queue = new Queue(), visited = new Map();
+    queue.add(root);
+    visited.set(root, true);
+
+    while (!queue.isEmpty()) {
+        let node = queue.remove();
+        console.log("visited: ", node.toString());
+
+        for (let neighbour = 0; neighbour < graph.length; neighbour++) {
+            if(graph[node][neighbour]) {
+                // there is an edge between the 2 nodes
+                if (visited.get(neighbour) === undefined) {
+                    console.log("not visited: ", neighbour.toString())
+                    // Not yet visited
+                    visited.set(neighbour, true);
+                    queue.add(neighbour);
+                }
+            }
+        }
+    }
+}
+
+//// DFS example
 // dfsWithGraphClass(graphWithClass);
-// dfsWithIntegerAdjanceyList(graphWithIntegerList);
-// dfsWithIntegerAdjanceyMatrix(graphWithAdjanceyMatrix);
+// dfsWithIntegerAdjacenyList(graphWithIntegerList);
+// dfsWithIntegerAdjacenyMatrix(graphWithAdjacenyMatrix);
+
+//// BFS example
+// bfsWithGraphClass(graphWithClass);
+// bfsWithIntegerAdjacenyList(graphWithIntegerList, 3);
+bfsWithIntegerAdjacenyMatrix(graphWithAdjacenyMatrix, 2);
