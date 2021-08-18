@@ -90,7 +90,7 @@ function dfsWithGraphClass(graph) {
 
 /**
  * Visit the nodes of the graph, represented with an integer adjaceny list, in DFS order
- * @param {number[]} graph The graph
+ * @param {number[][]} graph The graph
  */
 function dfsWithIntegerAdjanceyList(graph) {
     let visited = new Map();
@@ -118,10 +118,44 @@ function dfsWithIntegerAdjanceyList(graph) {
     }
 }
 
+/**
+ * Visit the nodes of the graph, represented with an integer adjaceny matrix, in DFS order
+ * @param {number[][]} graph The graph
+ */
+function dfsWithIntegerAdjanceyMatrix(graph) {
+    let visited = new Map();
+    // Go through the vertices
+    for (let node = 0; node < graph.length; node++) {
+        // console.log('V: ', node, visited)
+        if (visited.get(node) === undefined) {
+            dfsWithIntegerAdjanceyMatrixRecursion(node, visited, graph);
+        }
+    }
+
+    function dfsWithIntegerAdjanceyMatrixRecursion(node, visited, graph) {
+        if (node === null) return;
+        visited.set(node, true);
+        console.log("visited: ", node);
+        for (let neighbour = 0; neighbour < graph.length; neighbour++) {
+            // console.log('neighbour:', neighbour);
+            // Verify if there is an edge between the vertices
+            if(graph[node][neighbour]) {
+                if (visited.get(neighbour) === undefined) {
+                    // console.log("not visited: ", neighbour);
+                    // Node not visited yet
+                    dfsWithIntegerAdjanceyMatrixRecursion(neighbour, visited, graph);
+                }
+            }
+            
+        }
+    }
+}
+
 function bfs(root) {
 
 }
 
 // DFS example
 // dfsWithGraphClass(graphWithClass);
-dfsWithIntegerAdjanceyList(graphWithIntegerList);
+// dfsWithIntegerAdjanceyList(graphWithIntegerList);
+// dfsWithIntegerAdjanceyMatrix(graphWithAdjanceyMatrix);
