@@ -238,15 +238,16 @@ class BinarySearchTree {
         this.preorder(this.root);
     }
 
-    printInorder() {
-        this.inorder(this.root);
-    }
 
     preorder(node) {
         if (node === null) return;
         console.log(node.toString());
         this.preorder(node.left);
         this.preorder(node.right);
+    }
+
+    printInorder() {
+        this.inorder(this.root);
     }
 
     inorder(node) {
