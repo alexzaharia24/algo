@@ -1,3 +1,7 @@
+// Route Between Nodes: Given a directed graph, design an algorithm to find out whether there is a
+// route between two nodes.
+// Hints: #127
+
 function isRoute(n1, n2, adjList) {
     return canReach(n1, n2, adjList) || canReach(n2, n1, adjList);
 }
