@@ -317,3 +317,7 @@ class BinarySearchTree {
 // console.assert(bst.remove(n1Bst).left === n3Bst, "Remove n1Bst");
 // console.log(bst);
 // bst.printInorder();
+
+module.exports = {
+    BinaryTreeNode
+}

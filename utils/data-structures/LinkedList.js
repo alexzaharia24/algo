@@ -29,10 +29,18 @@ class LinkedList {
     }
 
     /**
+     * Add a node with the value `value` to the end of the list
+     * @param {Node} node 
+     */
+    add(value) {
+        this.addNode(new Node(value));
+    }
+
+    /**
      * Add a node to the end of the list
      * @param {Node} node 
      */
-    add(node) {
+    addNode(node) {
         if (this.first === null) {
             this.first = node;
             this.last = node;
@@ -52,8 +60,8 @@ class LinkedList {
      * Add multiple nodes to the end of the list
      * @param {Node[]} nodes
      */
-    addAll(nodes) {
-        for(let node of nodes) {
+    addNodes(nodes) {
+        for (let node of nodes) {
             this.add(node);
         }
     }
@@ -122,7 +130,7 @@ class LinkedList {
      *          False otherwise
      */
     deleteO1(node) {
-        if(node === this.first || node === this.last || node === null) return false;
+        if (node === this.first || node === this.last || node === null) return false;
         node.value = node.next.value;
         node.next = node.next.next;
         return true;
@@ -132,12 +140,13 @@ class LinkedList {
      * Return the string representation of the list containing all the nodes
      */
     toString() {
+        if (this.size === 0) return "[]";
         let node = this.first;
         let string = "[";
 
         let startOfCycle = this.detectCycle();
         let nrOfStartOfCycleEncounters = 0;
-        while (node !== null) {
+        while (node != null) {
             if (node === startOfCycle) {
                 if (nrOfStartOfCycleEncounters === 1) {
                     string += `<Cycle starting at node ${startOfCycle}>`;
@@ -147,7 +156,7 @@ class LinkedList {
             }
 
             string += node.toString();
-            if (node.next !== null) {
+            if (node.next != null) {
                 string += ", ";
             }
             node = node.next;
@@ -162,13 +171,14 @@ class LinkedList {
      * Uses Floyd's Cycle Detection
      */
     detectCycle() {
+        if (this.size === 0) return null;
         let slow = this.first;
         let fast = this.first;
         let meetingPoint = null;
         // Detection phase
-        while (slow !== null && fast !== null) {
+        while (slow != null && fast != null) {
             slow = slow.next;
-            if (fast.next === null) break;
+            if (fast.next == null) break;
             fast = fast.next.next;
 
             if (slow === fast) {
@@ -203,13 +213,13 @@ class LinkedList {
 }
 
 class LinkedListUtils {
-    constructor() {}
+    constructor() { }
     static toStringFromHead(head) {
-        if(head === null) return null;
+        if (head === null) return null;
         let string = "";
-        while(head !== null) {
+        while (head !== null) {
             string += head.toString();
-            if(head.next !== null) {
+            if (head.next !== null) {
                 string += ", ";
             }
             head = head.next;

@@ -26,6 +26,7 @@ class Queue {
     constructor() {
         this.start = null;
         this.end = null;
+        this.size = 0;
     }
 
     add(item) {
@@ -36,6 +37,7 @@ class Queue {
             this.start = newNode;
         }
         this.end = newNode;
+        this.size++;
     }
 
     remove() {
@@ -45,6 +47,7 @@ class Queue {
             this.end = null;
         }
         this.start = this.start.next;
+        this.size--;
         return item;
     }
 

@@ -10,6 +10,7 @@ class Node {
     }
 }
 
+// Time: O(N), Extra Space: O(N)
 function buildBST(A) {
     if (A.length === 0) return null;
     let mid = parseInt(A.length / 2);

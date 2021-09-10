@@ -2,6 +2,7 @@
 // route between two nodes.
 // Hints: #127
 
+// Time: O(N+M), Extra Space: O(N+M)
 function isRoute(n1, n2, adjList) {
     return canReach(n1, n2, adjList) || canReach(n2, n1, adjList);
 }
