@@ -46,4 +46,4 @@ n2.left = n4;
 n2.right = n5;
 n3.left = n6;
 
-listOfDepths(n0).forEach(ll => console.log(ll.toString()))
+listOfDepths(n0).fogrEach(ll => console.log(ll.toString()))
