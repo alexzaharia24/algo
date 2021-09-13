@@ -10,7 +10,7 @@ function listOfDepths(root) {
     if (root == null) return [];
     let result = [];
     let q = new Queue();
-    console.log(q);
+    // console.log(q);
     q.add(root);
 
     while (!q.isEmpty()) {
@@ -30,6 +30,9 @@ function listOfDepths(root) {
     }
     return result;
 }
+
+// Alternative solution: Modified Preorder DFS
+// p:243
 
 let n0 = new BinaryTreeNode(0);
 let n1 = new BinaryTreeNode(1);
