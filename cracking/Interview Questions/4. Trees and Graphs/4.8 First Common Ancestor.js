@@ -29,6 +29,7 @@ function firstCommonAncestor(root, node1, node2) {
     return result.ancestor;
 }
 
+// Time: O(N), Extra space: O(Depth) rec stack
 function firstCommonAncestorRecursive(root, node1, node2, result) {
     if(root == null) return false;
     let isNode1LeftDescendant = isDescendantOf(node1, root.left);
