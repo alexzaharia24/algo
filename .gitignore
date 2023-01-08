@@ -5,3 +5,4 @@ usedFlights/
 .vscode/
 node_modules/
 desktop.ini
+.DS_Store
