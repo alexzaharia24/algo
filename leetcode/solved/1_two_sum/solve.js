@@ -2,6 +2,22 @@ const twoSum = (nums, target) => {
     return twoSumOneFor(nums, target);
 }
 
+const twoSumOneFor = (nums, target) => {
+    const map = new Map();
+
+    for (let i = 0; i < nums.length; i++) {
+        const diff = target - nums[i];
+        if (diff in map) {
+            return [j, i];
+        }
+
+        map.set(nums[i], i);
+    }
+
+    throw new Error("There must always be exactly one solution");
+};
+
+
 const twoSumTwoFors = (nums, target) => {
     const map = new Map();
     for (let i = 0; i < nums.length; i++) {
@@ -9,6 +25,7 @@ const twoSumTwoFors = (nums, target) => {
     }
 
     for (let i = 0; i < nums.length; i++) {
+        const diff = target - nums[i];
         const pairIndex = map.get(target - nums[i]);
         if (pairIndex && pairIndex !== i) {
             return [i, pairIndex];
@@ -18,20 +35,6 @@ const twoSumTwoFors = (nums, target) => {
     throw new Error("There must always be exactly one solution");
 };
 
-const twoSumOneFor = (nums, target) => {
-    const map = new Map();
-
-    for (let i = 0; i < nums.length; i++) {
-        const j = map.get(target - nums[i]);
-        if (j != null) {
-            return [j, i];
-        }
-
-        map.set(nums[i], i);
-    }
-
-    throw new Error("There must always be exactly one solution");
-};
 
 
 let nums = [2, 7, 11, 15], target = 9;
