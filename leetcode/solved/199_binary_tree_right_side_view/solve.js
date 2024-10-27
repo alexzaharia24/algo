@@ -36,19 +36,28 @@ const bfsPerLevel = (queue, order, currentLevelIdx) => {
     }
 }
 
-const dfs = (node, memory) => {
-    if (node === null || memory.done) {
+/**
+ * Add to order the right most node at each level.
+ * The first time you visit a node on a level it should be the right most node.
+ * So add it to the order.
+ * After that if you visit other nodes on the same level ignore them
+ * and just keep traversing the node down.
+ * @param {TreeNode} node Current node
+ * @param {{maxLevel, order}} memory Remember maxLevel so far and result order 
+ * @returns 
+ */
+const dfs = (node, currentLevel, memory) => {
+    if(node === null) {
         return;
     }
 
-    if (node.left === null && node.right === null) {
-        memory.done = true;
+    if(currentLevel > memory.maxLevel) {
+        memory.maxLevel = currentLevel;
+        memory.order.push(node.val);
     }
 
-    memory.order.push(node.val);
-
-    dfs(node.right, memory);
-    dfs(node.left, memory);
+    dfs(node.right, currentLevel + 1, memory);
+    dfs(node.left, currentLevel + 1, memory);
 }
 
 const rightSideViewBfs = (root) => {
@@ -66,12 +75,22 @@ const rightSideViewBfs = (root) => {
     return rightView;
 }
 
+// Time: O(N)
+// Space: O(H), where H is the height of the tree
+const rightSideViewDfs = (root) => {
+    const memory = {maxLevel: 0, order: []};
+
+    dfs(root, 1, memory);
+
+    return memory.order;
+}
+
 const rightSideView = (root) => {
     // Option 1 - BFS with selecting the last element on each level
     // return rightSideViewBfs(root);
 
-    // Option 2 - DFS to right first and stop at first leaf
-    //
+    // Option 2 - DFS select the right most node at each level
+    return rightSideViewDfs(root);
 }
 
 const node4 = new TreeNode(4, null, null);

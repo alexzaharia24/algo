@@ -26,16 +26,18 @@ const findRecursive = (left, right) => {
 }
 
 const findIterative = (left, right) => {
-    let middle = parseInt((left + right) / 2);
-    let g = guess(middle);
+    while (left <= right) {
+        let middle = parseInt((left + right) / 2);
+        let g = guess(middle);
+
+        switch (g) {
+            case 0: 
+                return middle;
+        }
+    }
 
     while(g !== 0) {
-        if(g === 1) {
-            // go right
-            left = middle + 1;
-        } else {
-            right = middle - 1;
-        }
+
 
         middle = parseInt((left + right) / 2);
         g = guess(middle);
