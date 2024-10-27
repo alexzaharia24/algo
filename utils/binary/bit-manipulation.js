@@ -42,3 +42,9 @@ const binaryNumberToDec = (binary) => {
 
     return decimal;
 }
+
+module.exports = {
+    decToBinaryNumber,
+    decToBinaryString,
+    binaryNumberToDec
+}

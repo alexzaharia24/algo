@@ -1,6 +1,5 @@
 // Time: O(3^n)
 // Space: O(n)
-
 const tribonacciNaive = (n) => {
     switch(n) {
         case 0:
@@ -14,6 +13,8 @@ const tribonacciNaive = (n) => {
     }
 }
 
+// Time: O(N)
+// Space: O(n)
 const tribonacciDp = (n, cache) => {
     switch(n) {
         case 0:
